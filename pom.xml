@@ -27,6 +27,7 @@
     <modules>
         <module>portsync-events</module>
         <module>simulator</module>
+        <module>portsync-core</module>
     </modules>
 
     <properties>
@@ -34,6 +35,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springdoc.version>2.8.13</springdoc.version>
         <json-schema-validator.version>1.5.3</json-schema-validator.version>
+        <hdrhistogram.version>2.2.2</hdrhistogram.version>
     </properties>
 
     <dependencyManagement>
@@ -47,6 +49,11 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hdrhistogram</groupId>
+                <artifactId>HdrHistogram</artifactId>
+                <version>${hdrhistogram.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
