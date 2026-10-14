@@ -1,0 +1,28 @@
+name: tmp-ci
+on: { push: { branches: [tmp/wrapper-bootstrap] } }
+permissions: { contents: write }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - name: maven
+        run: |
+          mkdir -p cilogs
+          set +e
+          if [ -f MAVEN_ARGS ]; then ARGS=$(cat MAVEN_ARGS); else ARGS="-B verify"; fi
+          ./mvnw $ARGS > cilogs/maven.txt 2>&1; echo "exit=$?" >> cilogs/maven.txt
+          for f in $(find . -path '*-reports/*.txt'); do echo "== $f"; cat "$f"; done > cilogs/reports.txt 2>&1
+          for f in $(find . -path '*-reports/*-output.txt'); do echo "== $f"; tail -c 200000 "$f"; done > cilogs/outputs.txt 2>&1
+          if [ -f EXTRA.sh ]; then bash EXTRA.sh > cilogs/extra.txt 2>&1; echo "exit=$?" >> cilogs/extra.txt; fi
+          true
+      - name: push logs
+        if: always()
+        run: |
+          git config user.name ci && git config user.email ci@example.com
+          git add -f cilogs && git commit -qm "ci logs" && git push

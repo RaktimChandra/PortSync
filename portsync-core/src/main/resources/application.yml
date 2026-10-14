@@ -1,0 +1,99 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: portsync-core
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/portsync}
+    username: ${DB_USER:portsync}
+    password: ${DB_PASSWORD:portsync}
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+  flyway:
+    enabled: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9094}
+    consumer:
+      group-id: ${portsync.consumer.group-id}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        max.poll.interval.ms: 300000
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        enable.idempotence: true
+    listener:
+      missing-topics-fatal: false
+    admin:
+      fail-fast: false
+  jackson:
+    default-property-inclusion: always
+    serialization:
+      write-dates-as-timestamps: false
+  mvc:
+    async:
+      request-timeout: -1
+
+portsync:
+  clock:
+    speed-factor: ${SIM_SPEED_FACTOR:60}
+    max-extrapolation: 10m
+  sla:
+    evaluation-interval: PT5S
+    crane-productivity:
+      min-moves-per-hour: 20
+      window: 60m
+    crane-fault:
+      max: 15m
+    berth-wait:
+      max: 90m
+    truck-turn:
+      max: 45m
+    yard-utilisation:
+      max-ratio: 0.85
+      critical-ratio: 0.95
+  consumer:
+    group-id: portsync-core
+    concurrency: 3
+    max-retries: 5
+  retention:
+    processed-events: 2d
+    purge-interval: PT1H
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState, db, kafka
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+
+logging:
+  level:
+    org.apache.kafka: WARN
+    org.springframework.kafka.listener: INFO

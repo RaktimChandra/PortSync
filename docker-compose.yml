@@ -1,0 +1,178 @@
+# PortSync local stack.
+#   docker compose up -d --build            everything (dashboard on http://localhost:3000)
+#   docker compose up -d kafka postgres     only infrastructure, to run the apps from an IDE
+#   docker compose --profile loadtest run --rm loadtest     measured load test
+name: portsync
+
+x-java-app: &java-app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  restart: unless-stopped
+  environment: &java-env
+    KAFKA_BOOTSTRAP: kafka:9092
+    SIM_SPEED_FACTOR: ${SIM_SPEED_FACTOR:-60}
+    SPRING_PROFILES_ACTIVE: json
+
+services:
+  kafka:
+    image: apache/kafka:3.9.1
+    hostname: kafka
+    ports:
+      - "9094:9094"
+    environment:
+      # Single-node KRaft: this one process is both controller and broker. No ZooKeeper.
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      CLUSTER_ID: pX7mT9kQRZy3c1Q7vF0b2A
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      # Containers use kafka:9092; programs on your machine (IDE, load test) use localhost:9094.
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_NUM_PARTITIONS: 3
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 20s
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: portsync
+      POSTGRES_USER: portsync
+      POSTGRES_PASSWORD: portsync
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portsync -d portsync"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  portsync-core:
+    <<: *java-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE: portsync-core
+    image: portsync/portsync-core:local
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *java-env
+      DB_URL: jdbc:postgresql://postgres:5432/portsync
+      DB_USER: portsync
+      DB_PASSWORD: portsync
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health/readiness > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 40s
+
+  simulator:
+    <<: *java-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE: simulator
+    image: portsync/simulator:local
+    ports:
+      - "8081:8081"
+    environment:
+      <<: *java-env
+      SIM_SEED: ${SIM_SEED:-42}
+    depends_on:
+      portsync-core:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8081/actuator/health > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ./frontend
+    image: portsync/frontend:local
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      portsync-core:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - portsync-core
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/portsync.json
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+  loadtest:
+    profiles: ["loadtest"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE: loadtest
+    image: portsync/loadtest:local
+    # One-shot tool writing its report into ./loadtest-results on the host: run as root so the
+    # bind mount is writable on Linux hosts too (on Docker Desktop for Windows it always is).
+    user: "0:0"
+    environment:
+      LOADTEST_EVENTS: ${LOADTEST_EVENTS:-20000}
+      LOADTEST_RATE: ${LOADTEST_RATE:-0}
+      LOADTEST_BOOTSTRAP: kafka:9092
+      LOADTEST_CORE: http://portsync-core:8080
+      LOADTEST_SIMULATOR: http://simulator:8081
+      LOADTEST_OUT: /results
+    volumes:
+      - ./loadtest-results:/results
+    depends_on:
+      portsync-core:
+        condition: service_healthy
+
+volumes:
+  kafka-data:
+  pg-data:

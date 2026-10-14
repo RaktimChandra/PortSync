@@ -1,0 +1,7 @@
+# Structured JSON logs (Logstash format). Enabled in Docker Compose with SPRING_PROFILES_ACTIVE=json.
+# Every line written while an event is processed carries eventId, eventType, entityId, topic,
+# partition and offset from the MDC, so logs can be filtered by event in any log platform.
+logging:
+  structured:
+    format:
+      console: logstash
