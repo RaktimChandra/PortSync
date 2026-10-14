@@ -46,8 +46,8 @@ flowchart LR
     end
 
     subgraph core["portsync-core :8080"]
-        listener["Listener<br/>3 consumer threads"]
-        processor["EventProcessor<br/>idempotency + ordering + savepoint"]
+        listener["Listeners<br/>one per topic, 3 threads each"]
+        processor["EventProcessor<br/>idempotency + ordering + savepoint<br/>+ grace period for cross-topic deps"]
         sla["SLA evaluator<br/>every 5 s"]
         api["REST API + SSE"]
         dlqview["DLQ materialiser"]
