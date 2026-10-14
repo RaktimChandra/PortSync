@@ -73,9 +73,14 @@ public class KafkaConfig {
 
         DefaultErrorHandler handler = new DefaultErrorHandler(recoverer, backOff);
         handler.addNotRetryableExceptions(DeserializationException.class);
-        handler.setRetryListeners((record, ex, attempt) ->
-                log.warn("Retrying {}-{}@{} (attempt {}): {}", record.topic(), record.partition(), record.offset(),
-                        attempt, ex.getMessage()));
+        handler.setRetryListeners((record, ex, attempt) -> {
+            Throwable root = ex;
+            while (root.getCause() != null && root.getCause() != root) {
+                root = root.getCause();
+            }
+            log.warn("Retrying {}-{}@{} (attempt {}) after {}: {}", record.topic(), record.partition(),
+                    record.offset(), attempt, root.getClass().getSimpleName(), root.getMessage());
+        });
         return handler;
     }
 
