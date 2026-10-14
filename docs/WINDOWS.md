@@ -28,8 +28,11 @@ that everything is up:
 docker compose ps
 ```
 
-All of `kafka`, `postgres`, `portsync-core`, `simulator` and `frontend` should say `healthy`.
-Open http://localhost:3000.
+`kafka`, `postgres`, `portsync-core` and `simulator` should say `healthy`; `frontend`,
+`prometheus` and `grafana` have no health check and say `running`. If `portsync-core` still says
+`starting`, wait a minute and run the command again. Then open http://localhost:3000.
+
+Docker Desktop needs about 4 GB of memory for the whole stack (Settings > Resources).
 
 To follow the core's logs:
 
@@ -113,6 +116,9 @@ Also runs the Testcontainers integration tests. Docker Desktop must be running.
 
 ```powershell
 cd frontend
+```
+
+```powershell
 npm test
 ```
 
@@ -132,6 +138,7 @@ The report is printed and saved under `loadtest-results\`.
 |---|---|
 | `port is already allocated` | Something else uses 8080, 8081, 3000, 3001, 5432, 9090 or 9094. Stop it, or change the left-hand port in `docker-compose.yml` |
 | `mvnw.cmd` cannot download Maven | A proxy or firewall blocks repo.maven.apache.org; configure `%USERPROFILE%\.m2\settings.xml` |
-| Integration tests fail with "Could not find a valid Docker environment" | Start Docker Desktop; in Settings > General, enable "Expose daemon on tcp://localhost:2375 without TLS" only if your setup needs it |
+| Integration tests fail with "Could not find a valid Docker environment" | Docker Desktop is not running. Start it, wait until it says "Engine running", then run the tests again in a new terminal |
+| A container keeps restarting | `docker compose logs <service>`; most often Docker Desktop is short of memory (Settings > Resources) |
 | Dashboard says "Reconnecting" | The core is restarting or down: `docker compose ps`, then `docker compose logs portsync-core` |
 | Shell scripts fail with `\r` errors | They must have LF line endings. `.gitattributes` enforces this on checkout; if you edited them, convert back to LF |
