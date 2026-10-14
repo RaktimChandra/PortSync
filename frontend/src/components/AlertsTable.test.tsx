@@ -6,7 +6,7 @@ import { AlertsTable } from './AlertsTable';
 
 const base: Alert = {
   id: 1, rule: 'CRANE_FAULT_DURATION', entityId: 'QC03', severity: 'CRITICAL', state: 'OPEN',
-  message: 'QC03 has been faulted (SPREADER_JAM) for 22 min (maximum 15)', observedValue: 22, threshold: 15,
+  message: 'QC03 has been faulted (SPREADER_JAM) for 22 min (maximum 15 min)', observedValue: 22, threshold: 15,
   openedAt: '2026-10-14T08:30:00Z', lastSeenAt: '2026-10-14T08:35:00Z', acknowledgedAt: null, resolvedAt: null,
   resolution: null,
 };

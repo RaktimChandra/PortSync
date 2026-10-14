@@ -152,6 +152,25 @@ class SlaRulesTest {
                 assertThat(b.observed()).isEqualTo(50.0);
             });
         }
+
+        @Test
+        @DisplayName("a breach by seconds is reported to the second, never as '45 min (maximum 45)'")
+        void messageShowsSecondsSoTheBreachIsVisible() {
+            List<Breach> breaches = rule.evaluate(snapshot(List.of(), Map.of(), List.of(), List.of(
+                    new SlaSnapshot.OpenTruckVisit("TV-3", "CSQU3054383", "PICK_UP", "G1",
+                            NOW.minus(Duration.ofMinutes(45).plusSeconds(40)))), List.of()));
+            assertThat(breaches).singleElement().satisfies(b -> {
+                assertThat(b.message()).contains("inside for 45 min 40 s (maximum 45 min)");
+                assertThat(b.observed()).isCloseTo(45.667, org.assertj.core.data.Offset.offset(0.001));
+            });
+        }
+
+        @Test
+        void exactlyAtTheLimitIsNotABreach() {
+            assertThat(rule.evaluate(snapshot(List.of(), Map.of(), List.of(), List.of(
+                    new SlaSnapshot.OpenTruckVisit("TV-4", "CSQU3054383", "PICK_UP", "G1", NOW.minus(Duration.ofMinutes(45)))),
+                    List.of()))).isEmpty();
+        }
     }
 
     @Nested
