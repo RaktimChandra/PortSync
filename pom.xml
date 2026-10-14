@@ -28,6 +28,7 @@
         <module>portsync-events</module>
         <module>simulator</module>
         <module>portsync-core</module>
+        <module>loadtest</module>
     </modules>
 
     <properties>

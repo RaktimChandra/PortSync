@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>dev.portsync</groupId>
+        <artifactId>portsync-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>loadtest</artifactId>
+    <name>PortSync :: Load test</name>
+    <description>Pushes a fixed number of events and reports measured throughput and end-to-end latency</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.portsync</groupId>
+            <artifactId>portsync-events</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>loadtest</finalName>
+        <plugins>
+            <!-- Packages a runnable jar (java -jar loadtest.jar ...) for the Docker image. -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>dev.portsync.loadtest.LoadTest</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>dev.portsync.loadtest.LoadTest</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
