@@ -134,6 +134,43 @@ class EventProcessorTest {
     }
 
     @Test
+    @DisplayName("during the grace period a rejection that another topic could resolve is deferred, not dead-lettered")
+    void resolvableRejectionIsDeferredBeforeTheFinalAttempt() {
+        when(processed.claim(event, meta)).thenReturn(true);
+        when(versions.lastOccurredAt(EntityKind.CRANE, "QC01")).thenReturn(Optional.empty());
+        when(router.apply(event)).thenThrow(new RejectedEventException(RejectReason.VESSEL_STATE_CONFLICT, "not berthed yet"));
+
+        assertThatThrownBy(() -> processor.process(event, meta, false))
+                .isInstanceOf(DeferredEventException.class)
+                .satisfies(e -> assertThat(((DeferredEventException) e).reason()).isEqualTo(RejectReason.VESSEL_STATE_CONFLICT));
+        // Nothing is recorded: the exception rolls the whole transaction back, including the idempotency claim.
+        verify(processed, never()).finish(any(), any(), any(), any());
+        verifyNoInteractions(deadLetters, publisher);
+    }
+
+    @Test
+    @DisplayName("on the final attempt the same rejection is dead-lettered")
+    void resolvableRejectionIsDeadLetteredOnTheFinalAttempt() {
+        when(processed.claim(event, meta)).thenReturn(true);
+        when(versions.lastOccurredAt(EntityKind.CRANE, "QC01")).thenReturn(Optional.empty());
+        when(router.apply(event)).thenThrow(new RejectedEventException(RejectReason.VESSEL_STATE_CONFLICT, "not berthed"));
+
+        assertThat(processor.process(event, meta, true).outcome()).isEqualTo(Outcome.REJECTED);
+        verify(deadLetters).publish(meta, RejectReason.VESSEL_STATE_CONFLICT, "not berthed");
+    }
+
+    @Test
+    @DisplayName("a rejection no later event can fix (bad check digit) is dead-lettered at once, grace period or not")
+    void unresolvableRejectionIsNeverDeferred() {
+        when(processed.claim(event, meta)).thenReturn(true);
+        when(versions.lastOccurredAt(EntityKind.CRANE, "QC01")).thenReturn(Optional.empty());
+        when(router.apply(event)).thenThrow(new RejectedEventException(RejectReason.INVALID_CHECK_DIGIT, "bad digit"));
+
+        assertThat(processor.process(event, meta, false).outcome()).isEqualTo(Outcome.REJECTED);
+        verify(deadLetters).publish(meta, RejectReason.INVALID_CHECK_DIGIT, "bad digit");
+    }
+
+    @Test
     @DisplayName("if the DLQ send fails the exception propagates so the transaction rolls back and Kafka retries")
     void dlqFailurePropagates() {
         when(processed.claim(event, meta)).thenReturn(true);
