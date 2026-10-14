@@ -72,13 +72,16 @@ public class CraneEventHandler {
         Checks.present(p.vesselId(), "vesselId");
         Checks.crane(p.craneId());
 
+        // Lock order everywhere: vessel -> berth -> crane -> container -> yard stack. BERTH_ASSIGNED locks
+        // the vessel before its cranes, so locking the crane first here could deadlock with it.
+        Optional<VesselRow> vesselRow = vessels.lock(p.vesselId());
         CraneRow crane = cranes.lock(p.craneId()).orElseThrow();
         if (crane.faulted()) {
             throw new RejectedEventException(RejectReason.CRANE_FAULTED,
                     "Crane " + crane.id() + " is faulted (" + crane.faultCode() + ") since " + crane.faultedSince()
                             + " and cannot move " + container);
         }
-        VesselRow vessel = vessels.lock(p.vesselId()).orElseThrow(() ->
+        VesselRow vessel = vesselRow.orElseThrow(() ->
                 new RejectedEventException(RejectReason.UNKNOWN_VESSEL, "Unknown vessel visit " + p.vesselId()));
         if (!"AT_BERTH".equals(vessel.status())) {
             throw new RejectedEventException(RejectReason.VESSEL_STATE_CONFLICT,
