@@ -129,16 +129,35 @@ check it on the **Events and DLQ** and **Alerts** pages.
 
 ## Screenshots
 
-Add your own after running the stack (save them in `docs/screenshots/`):
+Captured from the running Compose stack (60x simulated time, faults injected so alerts show) by
+`scripts/screenshots.mjs` on 14 October 2026. Every page also has a light theme
+(`docs/screenshots/*-light.png`); the dashboard follows the system setting or the toggle.
 
-| Page | File |
-|---|---|
-| Overview: KPIs, quay, yard blocks, alerts | `docs/screenshots/overview.png` |
-| Yard: block grid and stack detail | `docs/screenshots/yard.png` |
-| Container lookup with history | `docs/screenshots/container.png` |
-| Alerts | `docs/screenshots/alerts.png` |
-| Events and DLQ | `docs/screenshots/events.png` |
-| Grafana dashboard | `docs/screenshots/grafana.png` |
+**Overview**: KPIs, the quay with vessels and crane rates, yard blocks, active alerts, latest events
+
+![Overview](docs/screenshots/overview.png)
+
+**Berths and cranes**
+
+![Berths and cranes](docs/screenshots/berths.png)
+
+**Yard**: block D stack by stack, with the selected stack's tiers (light theme)
+
+![Yard](docs/screenshots/yard-light.png)
+
+**Container lookup**: ISO 6346 validation, location and full event history
+
+![Container lookup](docs/screenshots/container.png)
+
+**Alerts**
+
+![Alerts](docs/screenshots/alerts.png)
+
+**Events and DLQ**: live stream and rejected events with reasons
+
+![Events and DLQ](docs/screenshots/events.png)
+
+The provisioned Grafana dashboard is at http://localhost:3001 once the stack is running.
 
 ## Tests
 
