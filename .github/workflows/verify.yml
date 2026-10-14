@@ -1,0 +1,61 @@
+name: verify-harness
+on: { push: { branches: [ci/verify] } }
+permissions: { contents: write }
+concurrency: { group: verify, cancel-in-progress: true }
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: '21', cache: maven }
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - name: run
+        run: |
+          set +e
+          mkdir -p out
+          MODE=$(cat .verify/mode 2>/dev/null || echo full)
+          { nproc; free -h | head -2; lscpu | grep 'Model name'; uname -r; docker --version; } > out/machine.txt 2>&1
+          if [[ "$MODE" == *maven* || "$MODE" == full ]]; then
+            ./mvnw -B -ntp verify > out/maven.txt 2>&1; echo "exit=$?" >> out/maven.txt
+            for f in $(find . -path '*-reports/*.txt' | sort); do echo "== $f"; cat "$f"; done > out/reports.txt 2>&1
+            grep -l -E "FAILURE|ERROR" $(find . -path '*-reports/*.txt') 2>/dev/null | while read f; do b=${f%.txt}; echo "== $b"; tail -c 150000 "$b-output.txt" 2>/dev/null; done > out/failed-output.txt
+          fi
+          if [[ "$MODE" == *front* || "$MODE" == full ]]; then
+            (cd frontend && npm ci --no-audit --no-fund && npm run typecheck && npm test && npm run build) > out/frontend.txt 2>&1; echo "exit=$?" >> out/frontend.txt
+          fi
+          if [[ "$MODE" == *smoke* || "$MODE" == full ]]; then
+            bash scripts/smoke-test.sh > out/smoke.txt 2>&1; echo "exit=$?" >> out/smoke.txt
+            curl -fsS 'localhost:8080/api/dlq?limit=200' > out/dlq.json 2>&1
+            curl -fsS localhost:8080/actuator/prometheus 2>/dev/null | grep -E '^portsync_(events_deferred|dlq|events_consumed)' > out/metrics.txt
+            docker compose logs --no-color portsync-core 2>&1 | grep -E '"level":"(WARN|ERROR)"' | cut -c1-500 | tail -150 > out/core-warn.txt
+            docker compose logs --no-color simulator 2>&1 | grep -E '"level":"(WARN|ERROR)"' | cut -c1-500 | tail -50 > out/sim-warn.txt
+            if [[ "$MODE" == *screens* ]]; then
+              curl -fsS -X POST "localhost:8081/api/faults/cranes/QC02/fault?code=HOIST_OVERLOAD" > /dev/null
+              curl -fsS -X POST "localhost:8081/api/faults/gate-surge" > /dev/null
+              curl -fsS -X POST "localhost:8081/api/faults/vessel-surge?vessels=3" > /dev/null
+              curl -fsS -X POST "localhost:8081/api/faults/invalid-container" > /dev/null
+              sleep 75
+              mkdir -p out/screenshots
+              (npm install --no-save --no-audit --no-fund playwright@1.56.1 && npx playwright install --with-deps chromium && node scripts/screenshots.mjs http://localhost:3000 out/screenshots) > out/screens.txt 2>&1; echo "exit=$?" >> out/screens.txt
+            fi
+            docker compose down -v > /dev/null 2>&1
+          fi
+          if [[ "$MODE" == *loadtest* ]]; then
+            docker compose up -d --build > /dev/null 2>&1; for i in $(seq 1 240); do curl -fsS localhost:8080/actuator/health/readiness > /dev/null && break; sleep 1; done
+            for i in $(seq 1 120); do curl -fsS localhost:8081/api/simulation/status | jq -e '.running' > /dev/null 2>&1 && break; sleep 1; done; sleep 20
+            curl -fsS -X POST localhost:8081/api/simulation/pause > /dev/null; sleep 5
+            for r in 1 2 3; do date -u; bash scripts/run-loadtest.sh 20000 0; done > out/loadtest.txt 2>&1
+            for r in 1 2; do date -u; bash scripts/run-loadtest.sh 10000 400; done >> out/loadtest.txt 2>&1
+            echo "exit=$?" >> out/loadtest.txt
+            cp loadtest-results/*.md out/ 2>/dev/null
+            docker compose down -v > /dev/null 2>&1
+          fi
+          true
+      - name: publish
+        if: always()
+        run: |
+          git config user.name ci && git config user.email ci@example.com
+          git checkout --orphan ci/verify-logs && git rm -rfq --cached . && git add -f out && git commit -qm "verify logs ${GITHUB_SHA}" && git push -f origin ci/verify-logs
