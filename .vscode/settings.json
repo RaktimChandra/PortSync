@@ -1,0 +1,10 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "disabled",
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/target": true,
+    "**/node_modules": true
+  },
+  "typescript.tsdk": "frontend/node_modules/typescript/lib"
+}

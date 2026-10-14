@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "vmware.vscode-spring-boot",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "bierner.markdown-mermaid",
+    "editorconfig.editorconfig"
+  ]
+}
