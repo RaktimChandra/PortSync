@@ -10,7 +10,7 @@ spring:
     username: ${DB_USER:portsync}
     password: ${DB_PASSWORD:portsync}
     hikari:
-      maximum-pool-size: 10
+      maximum-pool-size: 20
       connection-timeout: 5000
   flyway:
     enabled: true
