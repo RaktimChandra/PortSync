@@ -47,14 +47,17 @@ database can make "state changed" and "event recorded" atomic. It is the transac
 Within one partition they can't, because I key by entity. Across topics they can. I store the time
 of the last applied event per entity; anything strictly older is recorded as `IGNORED_STALE` and
 does nothing. Equal timestamps are applied. The trade-off is that I don't reorder or buffer, which
-is fine for state where the newest event wins, like a crane's status. I also documented the
-limitation that a container's gate and yard events are on different topics; a production system
-might put each aggregate's events on one topic.
+is fine for state where the newest event wins, like a crane's status. Cross-topic *dependencies*
+are a different problem, see 6b.
 
 **4. Why did you key CRANE_MOVE by container and not by crane?**
-Because a crane move changes the container's state: it puts it on the quay or takes it out of the
-yard. It has to stay ordered with that container's gate and yard events. The crane's own status
-changes are keyed by crane.
+Because a move changes the container's state, and one container can have several moves: discharged
+by one crane, later loaded onto another ship by a different crane. Keyed by crane, those two moves
+could sit on different partitions and the load could be processed before the discharge. Keyed by
+container, every move of that box is on one partition, in order. The crane's own status changes
+(fault, recovery, heartbeat) are keyed by crane. What keying can't do is order a container's crane
+move against its gate or yard events, because those are on other topics; that's what the grace
+period in question 6b is for.
 
 **5. How do you stop two consumer threads corrupting the yard?**
 Every yard write first locks the four rows of the stack with `SELECT ... FOR UPDATE`. A move locks
@@ -81,10 +84,23 @@ a time one hour before "now", but for containers from the opening inventory that
 *newer* than their last event, so the core would have applied it. The property test that compares
 the stale time with each container's latest event caught it.
 
+**6b. And a bug the end-to-end run found after that fix?**
+The second run dead-lettered one crane move as "vessel not berthed" although the simulator was
+right: the move is on the crane topic, the berth assignment on the berth topic, and the core
+happened to read the move a few milliseconds first. I didn't want to hide it by loosening the rule,
+so each rejection reason now says whether another topic's event could still fix it. For those,
+the processor rolls the whole transaction back and the listener retries with back-off for about five
+seconds before dead-lettering. Retries are counted in a metric so a dependency that's always late is
+visible. It can't deadlock because each consumer thread owns one partition of one topic, so a
+thread waiting for a berth event never holds the partition that carries it. An integration test
+sends the move before the berth assignment and checks it's applied, and the smoke test checks the
+DLQ stays empty under normal load.
+
 **7. What goes to the dead-letter queue and what doesn't?**
 Business rejections go there with a reason: bad check digit, unknown crane, crane faulted, container
 not in the yard, full stack and so on, plus unreadable JSON. The original bytes are forwarded
-unchanged with the reason in headers. Stale events and duplicates do not; they are normal. Unexpected
+unchanged with the reason in headers. A rejection that another topic could still fix waits out a
+short grace period first. Stale events and duplicates do not go there; they are normal. Unexpected
 exceptions, like the database being down, are retried with back-off and only dead-lettered after
 five attempts.
 
@@ -136,7 +152,7 @@ full table.
 
 ## If they ask "what would you do next?"
 
-- One topic per aggregate, or a delayed retry topic, to remove the cross-topic ordering limit.
+- One topic per aggregate, or a delayed retry topic instead of the in-place grace period, so a waiting event does not hold its partition.
 - Avro or Protobuf with a schema registry instead of JSON plus a schema file.
 - Batch commits of offsets and database writes to raise throughput, measured against the current numbers.
 - Authentication on the API and fault injection.
