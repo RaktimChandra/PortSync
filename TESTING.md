@@ -58,7 +58,13 @@ cleared conditions auto-resolve; a RESOLVED alert does not block a new one.
 **Processing decisions** (`EventProcessorTest`, Mockito): duplicates touch nothing; stale events are
 recorded and ignored; equal timestamps apply; rejections are recorded, dead-lettered and do not
 advance the entity version; a failing DLQ send and unexpected errors propagate (so the transaction
-rolls back and Kafka retries).
+rolls back and Kafka retries). During the grace period a rejection another topic could fix is
+deferred, not dead-lettered; on the final attempt it is; a rejection nothing can fix (bad check
+digit) is dead-lettered at once.
+
+**Grace period** (`TerminalEventListenerTest`, Mockito): a deferred event is retried until it applies,
+with each retry counted in `portsync.events.deferred`; after the configured retries the last attempt
+is final; an unparseable record goes straight to the DLQ without touching the processor.
 
 **Impossible events** (`HandlerRulesTest`, Mockito): bad check digit, move on a faulted crane,
 gate-out of a container not in the yard, unknown crane; and a repeated FAULT keeps the original
@@ -91,7 +97,7 @@ partitions.
 | `OutOfOrderIT` | A RECOVERED stamped before the FAULT does not un-fault the crane; equal timestamps apply; a stale YARD_MOVE does not move the container and is not dead-lettered. |
 | `DeadLetterIT` | Bad check digit, gate-out not in yard, move on faulted crane (with no partial state left), slot outside the layout, a fifth box on a full stack and unparseable JSON all land in the DLQ with the right reason; the consumer keeps going; the DLQ record carries the original value and reason headers. |
 | `YardInvariantsIT` | Burst: 150 containers gated in and stacked by three consumer threads in parallel; two containers reported into one slot at once (one lands on the other); a "floating" report lands on the ground; a non-existent slot is refused; 20 pick-ups force rehandles; every placement is replayed as a duplicate. Afterwards the database yard equals an independent in-memory model slot for slot and the invariant audit is empty. |
-| `CrossTopicConvergenceIT` | A removal on the gate topic and a placement on the yard topic for the same stack, applied in both possible orders, give the same final yard and no dead letters. |
+| `CrossTopicConvergenceIT` | A removal on the gate topic and a placement on the yard topic for the same stack, applied in both possible orders, give the same final yard and no dead letters. A crane move consumed before the BERTH_ASSIGNED it depends on (different topic) waits for it and is applied, not dead-lettered. |
 | `SlaAlertIT` | Fault alert opens after 15 min, is de-duplicated across evaluations, can be acknowledged (409 on a second ack), and auto-resolves on recovery. Productivity alert, manual resolve, and a new alert when the breach persists. Berth wait, truck turn time and yard utilisation alerts open and clear. |
 | `ApiIT` | Every endpoint, including 400/404/405/409 paths and the common error body; actuator liveness/readiness with DB and Kafka; custom Prometheus metrics; OpenAPI document; SSE delivers `hello` and then a live `event` message. |
 
@@ -104,6 +110,9 @@ partitions.
 - `AlertsTable.test.tsx`: empty state, plain-language rule names, acknowledge/resolve callbacks,
   buttons disabled for transitions the API would refuse.
 - `KpiBand.test.tsx`: the five KPIs and the empty turn-time case.
+- `ContainersPage.test.tsx`: a wrong check digit is explained while typing and never reaches the API;
+  a valid number in the URL is looked up and its location and history shown; a valid but unknown
+  number gets a clear "never seen" message (404). `fetch` is stubbed.
 
 ## What is deliberately not tested
 
