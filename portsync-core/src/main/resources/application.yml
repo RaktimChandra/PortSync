@@ -64,6 +64,8 @@ portsync:
     group-id: portsync-core
     concurrency: 3
     max-retries: 5
+    grace-retries: 6
+    grace-backoff: 100ms
   retention:
     processed-events: 2d
     purge-interval: PT1H

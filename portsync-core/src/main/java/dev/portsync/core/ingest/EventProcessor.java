@@ -26,7 +26,10 @@ import java.util.Set;
  *       the same entity, record it as IGNORED_STALE and stop. Equal timestamps are applied.</li>
  *   <li><b>Apply</b> - run the handler inside a SAVEPOINT. A business rejection rolls back to the
  *       savepoint, so partial changes disappear but the processed_events row survives; the event is
- *       recorded as REJECTED and dead-lettered.</li>
+ *       recorded as REJECTED and dead-lettered. If the reason could be caused by an event on another
+ *       topic that has not been applied yet, and this is not the final attempt, the whole
+ *       transaction is rolled back instead ({@link DeferredEventException}) so the listener can try
+ *       again shortly.</li>
  *   <li>Commit. Metrics and the live stream are notified only after the commit succeeded.</li>
  * </ol>
  */
@@ -54,8 +57,23 @@ public class EventProcessor {
         this.savepoint.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);
     }
 
+    /** Processes with no grace period: a rejection is final. */
     @Transactional
     public ProcessingResult process(TerminalEvent event, RecordMeta meta) {
+        return doProcess(event, meta, true);
+    }
+
+    /**
+     * @param finalAttempt false while the listener is still willing to wait for events on other
+     *                     topics; then a rejection whose reason {@link RejectReason#mayResolve()} is
+     *                     thrown as {@link DeferredEventException} instead of being dead-lettered
+     */
+    @Transactional
+    public ProcessingResult process(TerminalEvent event, RecordMeta meta, boolean finalAttempt) {
+        return doProcess(event, meta, finalAttempt);
+    }
+
+    private ProcessingResult doProcess(TerminalEvent event, RecordMeta meta, boolean finalAttempt) {
         if (!processed.claim(event, meta)) {
             log.info("Duplicate event ignored");
             return publish(ProcessingResult.of(event, meta, Outcome.DUPLICATE, "DUPLICATE",
@@ -77,6 +95,9 @@ public class EventProcessor {
             log.debug("Event applied");
             return publish(ProcessingResult.of(event, meta, Outcome.APPLIED, null, null, scopes));
         } catch (RejectedEventException rejection) {
+            if (!finalAttempt && rejection.reason().mayResolve()) {
+                throw new DeferredEventException(rejection);
+            }
             processed.finish(event.eventId(), Outcome.REJECTED, rejection.reason().name(), rejection.getMessage());
             deadLetters.publish(meta, rejection.reason(), rejection.getMessage());
             log.warn("Event rejected to DLQ: {} - {}", rejection.reason(), rejection.getMessage());

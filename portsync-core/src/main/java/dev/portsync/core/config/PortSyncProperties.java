@@ -53,7 +53,15 @@ public record PortSyncProperties(
             @DecimalMin("0.0") @DecimalMax("1.0") double criticalRatio) {
     }
 
-    public record Consumer(@NotNull String groupId, @Min(1) int concurrency, @Min(0) int maxRetries) {
+    /**
+     * @param groupId       consumer group shared by the four topic listeners
+     * @param concurrency   consumer threads per topic (one per partition)
+     * @param maxRetries    retries for unexpected errors before PROCESSING_FAILED
+     * @param graceRetries  retries for rejections that another topic's event could still resolve
+     * @param graceBackoff  first pause of the grace period; doubles each retry, capped at 2 s
+     */
+    public record Consumer(@NotNull String groupId, @Min(1) int concurrency, @Min(0) int maxRetries,
+                           @Min(0) int graceRetries, @NotNull Duration graceBackoff) {
     }
 
     /** How long processed-event ids are kept for idempotency checks (wall-clock time). */
