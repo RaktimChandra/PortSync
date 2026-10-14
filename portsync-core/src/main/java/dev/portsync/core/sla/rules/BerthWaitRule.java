@@ -37,9 +37,9 @@ public class BerthWaitRule implements SlaRule {
             Duration waited = Duration.between(vessel.arrivedAt(), s.now());
             if (waited.compareTo(max) > 0) {
                 breaches.add(new Breach(ID, vessel.id(), Severity.WARNING,
-                        String.format("%s (%s) has waited %d min for a berth (maximum %d)",
-                                vessel.name(), vessel.id(), waited.toMinutes(), max.toMinutes()),
-                        waited.toMinutes(), max.toMinutes()));
+                        String.format("%s (%s) has waited %s for a berth (maximum %d min)",
+                                vessel.name(), vessel.id(), Breach.describe(waited), max.toMinutes()),
+                        Breach.minutes(waited), max.toMinutes()));
             }
         }
         return breaches;

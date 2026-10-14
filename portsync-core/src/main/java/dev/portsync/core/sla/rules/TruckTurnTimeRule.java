@@ -40,10 +40,10 @@ public class TruckTurnTimeRule implements SlaRule {
             Duration inside = Duration.between(visit.gateInAt(), s.now());
             if (inside.compareTo(max) > 0) {
                 breaches.add(new Breach(ID, visit.id(), Severity.WARNING,
-                        String.format("Truck visit %s (%s %s, lane %s) inside for %d min (maximum %d)",
+                        String.format("Truck visit %s (%s %s, lane %s) inside for %s (maximum %d min)",
                                 visit.id(), visit.direction(), visit.containerNumber(), visit.lane(),
-                                inside.toMinutes(), max.toMinutes()),
-                        inside.toMinutes(), max.toMinutes()));
+                                Breach.describe(inside), max.toMinutes()),
+                        Breach.minutes(inside), max.toMinutes()));
             }
         }
         return breaches;

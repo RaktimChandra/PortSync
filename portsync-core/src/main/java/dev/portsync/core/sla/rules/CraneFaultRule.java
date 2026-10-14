@@ -40,9 +40,9 @@ public class CraneFaultRule implements SlaRule {
             Duration down = Duration.between(crane.faultedSince(), s.now());
             if (down.compareTo(max) > 0) {
                 breaches.add(new Breach(ID, crane.id(), Severity.CRITICAL,
-                        String.format("%s has been faulted (%s) for %d min (maximum %d)",
-                                crane.id(), crane.faultCode(), down.toMinutes(), max.toMinutes()),
-                        down.toMinutes(), max.toMinutes()));
+                        String.format("%s has been faulted (%s) for %s (maximum %d min)",
+                                crane.id(), crane.faultCode(), Breach.describe(down), max.toMinutes()),
+                        Breach.minutes(down), max.toMinutes()));
             }
         }
         return breaches;
