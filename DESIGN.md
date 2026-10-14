@@ -47,9 +47,12 @@ depart) must stay in order; keying the arrival by vessel and the assignment by b
 on different partitions and BERTH_ASSIGNED could overtake VESSEL_ARRIVED. The berth id travels in
 the payload.
 
-**CRANE_MOVE is keyed by container, not crane.** The move changes the container's state (onto the
-quay, or out of the yard), so it must stay ordered with that container's gate and yard events. The
-crane's own state changes (fault, recovery, heartbeat) are keyed by crane.
+**CRANE_MOVE is keyed by container, not crane.** One container can be moved by different cranes
+(discharged by QC02, later loaded by QC05). Keyed by crane, those moves could land on different
+partitions and the load could be processed before the discharge. Keyed by container, all of one
+box's crane moves share a partition and stay in order. The crane's own state changes (fault,
+recovery, heartbeat) are keyed by crane. Keys order events within a topic only; dependencies across
+topics are handled in section 4.
 
 ## 3. Idempotency: exactly-once effects on at-least-once delivery
 
@@ -106,8 +109,8 @@ one topic, not across topics. Two cases matter:
 
 1. *Events of one container on different topics* (GATE_IN on gate, YARD_MOVE on yard). In normal
    operation they are minutes of simulated time apart (seconds of real time), so they arrive in
-   order. If they ever did not, YARD_MOVE would be rejected as "unknown container" rather than
-   corrupting state. The simulator publishes its opening inventory in phases with a pause between
+   order. If they ever did not, YARD_MOVE would wait out the grace period below and, failing that,
+   be rejected as "unknown container" rather than corrupting state. The simulator publishes its opening inventory in phases with a pause between
    topics for the same reason.
 2. *Different containers sharing a stack.* A pick-up (GATE_OUT, gate topic) or a load (CRANE_MOVE,
    crane topic) can remove a box from a stack in the same second that a YARD_MOVE (yard topic) puts
@@ -118,8 +121,34 @@ one topic, not across topics. Two cases matter:
    physical yard (`CrossTopicConvergenceIT`), and the smoke test checks that normal operation
    dead-letters nothing and that the core's yard matches the simulator's block by block.
 
-For a production system the general remedies are one topic per aggregate, or a delayed retry topic
-for events that are "too early".
+3. *An event that depends on another entity's event on another topic.* A CRANE_MOVE (crane topic,
+   keyed by container) needs the vessel to be berthed, but BERTH_ASSIGNED travels on the berth topic
+   keyed by vessel. The second end-to-end run caught one move consumed a few milliseconds before its
+   berth assignment, and it was dead-lettered as VESSEL_STATE_CONFLICT although nothing was wrong.
+
+**Grace period for "not yet" rejections.** Each `RejectReason` says whether an event on another
+topic could still make the event valid (`mayResolve`: unknown vessel, vessel not berthed, crane not
+assigned, container not in the yard...) or not (bad check digit, malformed, slot outside the
+layout). For the first kind the listener does not dead-letter at once: the processor throws
+`DeferredEventException`, the whole transaction rolls back (including the idempotency claim), and
+the listener tries again after 100, 200, 400, 800 ms, 1.6 s, 2 s (about 5 s in all, configurable as
+`portsync.consumer.grace-retries` and `grace-backoff`). Only the final attempt dead-letters. Each
+retry is counted in `portsync_events_deferred_total{reason}`, so a dependency that is always late
+shows up on a graph instead of hiding.
+
+- *Why it cannot deadlock.* There is one listener container per topic and three threads per
+  container, so every thread owns one partition of one topic. A thread waiting for a berth event
+  only holds up its own crane partition, never the berth partition that carries what it waits for.
+- *Why block the partition rather than skip ahead.* Later events for the same container (its yard
+  move, its gate-out) sit behind it in the same partition, and they need it applied first. Blocking
+  keeps each entity's order intact.
+- *Cost.* A genuinely impossible event of a resolvable kind (a gate-out for a container that never
+  existed) reaches the DLQ about 5 seconds late, and holds its partition for those 5 seconds.
+  `CrossTopicConvergenceIT` sends a crane move before its berth assignment and checks it is applied,
+  not dead-lettered; `TerminalEventListenerTest` pins the retry sequence.
+
+For a production system the more general remedies are one topic per aggregate, or a separate
+delayed-retry topic so a waiting event does not hold its partition.
 
 ## 5. Yard invariants
 
@@ -163,6 +192,8 @@ processor: the original record value is forwarded **byte for byte** to `terminal
 `portsync-dlq-reason`, `portsync-dlq-detail` and the source topic/partition/offset. The send is
 synchronous inside the transaction: if Kafka does not acknowledge it, the transaction rolls back and
 the record is retried, so a rejection is never lost. The consumer never crashes on bad data.
+Rejections that another topic's event could still fix are dead-lettered only after the grace period
+of section 4.
 
 **Unreadable records** (not JSON, missing envelope fields) are dead-lettered as `MALFORMED_EVENT`
 before any database work.
@@ -280,8 +311,8 @@ Every single-*digit* change is always detected. The tests assert exactly which f
 
 - Run more than one core instance (consumer group rebalancing already works) and move SSE fan-out
   to a shared channel.
-- Put each aggregate's events on one topic, or add a delayed retry topic, to remove the cross-topic
-  ordering limit.
+- Put each aggregate's events on one topic, or replace the in-place grace period with a delayed
+  retry topic, to remove the cross-topic ordering limit without holding a partition.
 - Schema registry with Avro or Protobuf instead of JSON plus a JSON Schema file.
 - Authentication on the API and the fault injection endpoints (here they are open on purpose).
 - Partition `processed_events` and `container_history` by time.
