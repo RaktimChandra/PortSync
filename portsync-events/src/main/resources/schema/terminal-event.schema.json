@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://portsync.dev/schema/terminal-event.schema.json",
+  "title": "TerminalEvent",
+  "description": "Envelope for every event published on the terminal.* Kafka topics. The Kafka record key always equals entityId.",
+  "type": "object",
+  "required": ["schemaVersion", "eventId", "type", "occurredAt", "entityId", "source", "payload"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      "description": "Unique id; the consumer's idempotency key. A redelivered or duplicated event carries the same eventId."
+    },
+    "type": {
+      "enum": ["VESSEL_ARRIVED", "BERTH_ASSIGNED", "VESSEL_DEPARTED", "CRANE_MOVE", "CRANE_STATUS", "GATE_IN", "GATE_OUT", "YARD_MOVE"]
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Simulated time at which the event happened (ISO-8601, UTC)."
+    },
+    "entityId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Vessel visit id, crane id or container number depending on type. Used as Kafka key."
+    },
+    "source": { "type": "string", "minLength": 1 },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "VESSEL_ARRIVED" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^V-[0-9]{4,}$" },
+          "payload": {
+            "type": "object",
+            "required": ["vesselName", "voyage", "dischargeCount", "loadCount"],
+            "properties": {
+              "vesselName": { "type": "string", "minLength": 1 },
+              "voyage": { "type": "string", "minLength": 1 },
+              "dischargeCount": { "type": "integer", "minimum": 0 },
+              "loadCount": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "BERTH_ASSIGNED" } } },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": ["berthId", "craneIds"],
+            "properties": {
+              "berthId": { "enum": ["B1", "B2", "B3"] },
+              "craneIds": {
+                "type": "array",
+                "items": { "type": "string", "pattern": "^QC0[1-6]$" },
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "VESSEL_DEPARTED" } } },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": ["berthId"],
+            "properties": { "berthId": { "enum": ["B1", "B2", "B3"] } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "CRANE_MOVE" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^[A-Z]{3}[UJZ][0-9]{7}$" },
+          "payload": {
+            "type": "object",
+            "required": ["craneId", "vesselId", "kind"],
+            "properties": {
+              "craneId": { "type": "string", "pattern": "^QC0[1-6]$" },
+              "vesselId": { "type": "string" },
+              "kind": { "enum": ["DISCHARGE", "LOAD"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "CRANE_STATUS" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^QC0[1-6]$" },
+          "payload": {
+            "type": "object",
+            "required": ["signal"],
+            "properties": {
+              "signal": { "enum": ["HEARTBEAT", "FAULT", "RECOVERED"] },
+              "faultCode": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "GATE_IN" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^[A-Z]{3}[UJZ][0-9]{7}$" },
+          "payload": {
+            "type": "object",
+            "required": ["truckVisitId", "lane", "direction", "truckPlate"],
+            "properties": {
+              "truckVisitId": { "type": "string", "minLength": 1 },
+              "lane": { "enum": ["G1", "G2", "G3", "G4"] },
+              "direction": { "enum": ["DROP_OFF", "PICK_UP"] },
+              "truckPlate": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "GATE_OUT" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^[A-Z]{3}[UJZ][0-9]{7}$" },
+          "payload": {
+            "type": "object",
+            "required": ["truckVisitId", "lane"],
+            "properties": {
+              "truckVisitId": { "type": "string", "minLength": 1 },
+              "lane": { "enum": ["G1", "G2", "G3", "G4"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "YARD_MOVE" } } },
+      "then": {
+        "properties": {
+          "entityId": { "pattern": "^[A-Z]{3}[UJZ][0-9]{7}$" },
+          "payload": {
+            "type": "object",
+            "required": ["block", "row", "bay", "tier"],
+            "properties": {
+              "block": { "enum": ["A", "B", "C", "D"] },
+              "row": { "type": "integer", "minimum": 1, "maximum": 6 },
+              "bay": { "type": "integer", "minimum": 1, "maximum": 10 },
+              "tier": { "type": "integer", "minimum": 1, "maximum": 4 }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
