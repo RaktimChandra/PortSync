@@ -1,11 +1,12 @@
 // Captures dashboard screenshots from a running stack (used to produce docs/screenshots).
 // Usage (from the repo root, with the stack running):
 //   npm install --no-save playwright && npx playwright install chromium
-//   node scripts/screenshots.mjs [baseUrl] [outDir]
+//   node scripts/screenshots.mjs [baseUrl] [outDir] [grafanaUrl]
 import { chromium } from 'playwright';
 
 const base = process.argv[2] ?? 'http://localhost:3000';
 const out = process.argv[3] ?? 'docs/screenshots';
+const grafana = process.argv[4] ?? 'http://localhost:3001';
 const pages = [
   ['overview', '/'],
   ['berths', '/berths'],
@@ -45,4 +46,14 @@ for (const scheme of ['dark', 'light']) {
   }
   await context.close();
 }
+
+// The provisioned Grafana dashboard (anonymous viewer access is enabled in Compose).
+const grafanaContext = await browser.newContext({ viewport: { width: 1600, height: 1000 }, colorScheme: 'dark' });
+const grafanaPage = await grafanaContext.newPage();
+await grafanaPage.goto(`${grafana}/d/portsync-ops?orgId=1&from=now-15m&to=now&kiosk`, { waitUntil: 'domcontentloaded' });
+await grafanaPage.waitForSelector('[data-testid="data-testid panel content"], .react-grid-layout', { timeout: 30_000 });
+await grafanaPage.waitForTimeout(8000);
+await grafanaPage.screenshot({ path: `${out}/grafana.png`, fullPage: true });
+console.log('saved', `${out}/grafana.png`);
+await grafanaContext.close();
 await browser.close();
