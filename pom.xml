@@ -26,6 +26,7 @@
 
     <modules>
         <module>portsync-events</module>
+        <module>simulator</module>
     </modules>
 
     <properties>
