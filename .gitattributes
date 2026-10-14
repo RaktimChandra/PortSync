@@ -1,0 +1,18 @@
+# Normalise line endings so the repo behaves the same on Windows, WSL2 and Linux CI.
+* text=auto
+
+# Shell scripts must keep LF or they break inside Linux containers / WSL.
+*.sh   text eol=lf
+mvnw   text eol=lf
+Dockerfile text eol=lf
+
+# Windows batch files need CRLF.
+*.cmd  text eol=crlf
+*.bat  text eol=crlf
+
+# Binary assets
+*.png  binary
+*.jpg  binary
+*.ico  binary
+*.jar  binary
+*.zip  binary
