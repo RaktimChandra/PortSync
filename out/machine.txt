@@ -1,0 +1,6 @@
+4
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       1.2Gi        11Gi        46Mi       3.7Gi        14Gi
+Model name:                              AMD EPYC 9V74 80-Core Processor
+6.17.0-1022-azure
+Docker version 28.0.4, build b8034c0

@@ -1,0 +1,942 @@
+== Starting stack
+ prometheus Pulling 
+ postgres Pulling 
+ grafana Pulling 
+ kafka Pulling 
+ e2de96513ba9 Already exists 
+ 1b7f9cd581ee Pulling fs layer 
+ 210b280f9556 Pulling fs layer 
+ 81717818649a Pulling fs layer 
+ 3ae6141cfd99 Pulling fs layer 
+ 25b77f59fd95 Pulling fs layer 
+ 6c25da34e03f Pulling fs layer 
+ a88782f92806 Pulling fs layer 
+ d8d21be4bf02 Pulling fs layer 
+ 6117bd39f23f Pulling fs layer 
+ 509688edf37b Pulling fs layer 
+ 6c25da34e03f Waiting 
+ a88782f92806 Waiting 
+ d8d21be4bf02 Waiting 
+ 6117bd39f23f Waiting 
+ 3ae6141cfd99 Waiting 
+ 25b77f59fd95 Waiting 
+ 9fa9226be034 Pulling fs layer 
+ 1617e25568b2 Pulling fs layer 
+ 25011dfbfdeb Pulling fs layer 
+ f6c7e1c85066 Pulling fs layer 
+ f925e29e3973 Pulling fs layer 
+ 67c7af41f1ac Pulling fs layer 
+ e2015cdcb081 Pulling fs layer 
+ d0079b8baf74 Pulling fs layer 
+ ba920d0bcda2 Pulling fs layer 
+ 04d7bae2d3ad Pulling fs layer 
+ 8b2021cd7028 Pulling fs layer 
+ 23133967bfe3 Pulling fs layer 
+ f925e29e3973 Waiting 
+ 67c7af41f1ac Waiting 
+ e2015cdcb081 Waiting 
+ 9fa9226be034 Waiting 
+ d0079b8baf74 Waiting 
+ 1617e25568b2 Waiting 
+ ba920d0bcda2 Waiting 
+ 23133967bfe3 Waiting 
+ 04d7bae2d3ad Waiting 
+ 25011dfbfdeb Waiting 
+ 43c4264eed91 Pulling fs layer 
+ 6d083c262ef7 Pulling fs layer 
+ 61ad5fa1174a Pulling fs layer 
+ faa25921ada9 Pulling fs layer 
+ ee380b05b513 Pulling fs layer 
+ 6d083c262ef7 Waiting 
+ 61ad5fa1174a Waiting 
+ 43c4264eed91 Waiting 
+ faa25921ada9 Waiting 
+ 1f925eb55205 Pulling fs layer 
+ 90075272e866 Pulling fs layer 
+ ee380b05b513 Waiting 
+ 915d19682ac9 Pulling fs layer 
+ 2766b5007f5a Pulling fs layer 
+ c077747462c3 Pulling fs layer 
+ 1f925eb55205 Waiting 
+ 2766b5007f5a Waiting 
+ 90075272e866 Waiting 
+ 915d19682ac9 Waiting 
+ c077747462c3 Waiting 
+ f18232174bc9 Pulling fs layer 
+ f6cd406c8d97 Pulling fs layer 
+ 74f6a226ed93 Pulling fs layer 
+ f18232174bc9 Waiting 
+ e6744199aa66 Pulling fs layer 
+ cda86626eeb3 Pulling fs layer 
+ 304e58a73598 Pulling fs layer 
+ 34d370b15c91 Pulling fs layer 
+ 6e6e21ba9841 Pulling fs layer 
+ f6cd406c8d97 Waiting 
+ a34edb4da622 Pulling fs layer 
+ f7cdaeb78991 Pulling fs layer 
+ 74f6a226ed93 Waiting 
+ e6744199aa66 Waiting 
+ cda86626eeb3 Waiting 
+ 304e58a73598 Waiting 
+ 34d370b15c91 Waiting 
+ 6e6e21ba9841 Waiting 
+ a34edb4da622 Waiting 
+ f7cdaeb78991 Waiting 
+ 81717818649a Downloading [==================================================>]     172B/172B
+ 81717818649a Verifying Checksum 
+ 81717818649a Download complete 
+ 210b280f9556 Downloading [>                                                  ]  15.79kB/901.4kB
+ 1b7f9cd581ee Downloading [==================================================>]     969B/969B
+ 1b7f9cd581ee Verifying Checksum 
+ 1b7f9cd581ee Download complete 
+ 1b7f9cd581ee Extracting [==================================================>]     969B/969B
+ 1b7f9cd581ee Extracting [==================================================>]     969B/969B
+ 210b280f9556 Verifying Checksum 
+ 210b280f9556 Download complete 
+ 3ae6141cfd99 Downloading [==================================================>]     116B/116B
+ 3ae6141cfd99 Download complete 
+ 25b77f59fd95 Downloading [>                                                  ]  538.8kB/111.3MB
+ 6c25da34e03f Downloading [==================>                                ]  3.501kB/9.669kB
+ 6c25da34e03f Downloading [==================================================>]  9.669kB/9.669kB
+ 6c25da34e03f Verifying Checksum 
+ 6c25da34e03f Download complete 
+ 25b77f59fd95 Downloading [=================>                                 ]  39.86MB/111.3MB
+ a88782f92806 Downloading [==================================================>]     128B/128B
+ a88782f92806 Verifying Checksum 
+ a88782f92806 Download complete 
+ 25b77f59fd95 Downloading [=====================================>             ]  84.57MB/111.3MB
+ d8d21be4bf02 Downloading [==================================================>]     169B/169B
+ d8d21be4bf02 Verifying Checksum 
+ d8d21be4bf02 Download complete 
+ 25b77f59fd95 Downloading [===============================================>   ]    105MB/111.3MB
+ 6117bd39f23f Downloading [============================>                      ]  3.501kB/6.111kB
+ 6117bd39f23f Downloading [==================================================>]  6.111kB/6.111kB
+ 6117bd39f23f Verifying Checksum 
+ 6117bd39f23f Download complete 
+ 25b77f59fd95 Verifying Checksum 
+ 25b77f59fd95 Download complete 
+ 509688edf37b Downloading [==================================================>]     185B/185B
+ 509688edf37b Verifying Checksum 
+ 509688edf37b Download complete 
+ 1617e25568b2 Downloading [=>                                                 ]  15.72kB/480.9kB
+ 1617e25568b2 Downloading [==================================================>]  480.9kB/480.9kB
+ 1617e25568b2 Verifying Checksum 
+ 9fa9226be034 Downloading [=>                                                 ]  15.74kB/783kB
+ 9fa9226be034 Downloading [==================================================>]    783kB/783kB
+ 9fa9226be034 Download complete 
+ 9fa9226be034 Extracting [==>                                                ]  32.77kB/783kB
+ f925e29e3973 Downloading [==================================================>]     604B/604B
+ f925e29e3973 Verifying Checksum 
+ f925e29e3973 Download complete 
+ 9fa9226be034 Extracting [==================>                                ]  294.9kB/783kB
+ f6c7e1c85066 Downloading [>                                                  ]    540kB/53.89MB
+ 25011dfbfdeb Downloading [>                                                  ]    540kB/58.97MB
+ 9fa9226be034 Extracting [==================================================>]    783kB/783kB
+ 9fa9226be034 Extracting [==================================================>]    783kB/783kB
+ f6c7e1c85066 Downloading [=====================================>             ]  40.01MB/53.89MB
+ 25011dfbfdeb Downloading [==============================>                    ]  35.68MB/58.97MB
+ f6c7e1c85066 Verifying Checksum 
+ f6c7e1c85066 Download complete 
+ 25011dfbfdeb Verifying Checksum 
+ 25011dfbfdeb Download complete 
+ 67c7af41f1ac Downloading [==================================================>]  2.679kB/2.679kB
+ 67c7af41f1ac Download complete 
+ e2015cdcb081 Downloading [==================================================>]  3.088kB/3.088kB
+ d0079b8baf74 Downloading [===========================================>       ]  3.501kB/4.023kB
+ ba920d0bcda2 Downloading [==================================================>]   1.44kB/1.44kB
+ e2015cdcb081 Verifying Checksum 
+ e2015cdcb081 Download complete 
+ ba920d0bcda2 Verifying Checksum 
+ d0079b8baf74 Download complete 
+ ba920d0bcda2 Download complete 
+ 9fa9226be034 Pull complete 
+ 23133967bfe3 Downloading [==================================================>]     722B/722B
+ 23133967bfe3 Verifying Checksum 
+ 23133967bfe3 Download complete 
+ 8b2021cd7028 Downloading [==================================================>]     100B/100B
+ 04d7bae2d3ad Downloading [=>                                                 ]  3.435kB/135.4kB
+ 8b2021cd7028 Verifying Checksum 
+ 8b2021cd7028 Download complete 
+ 04d7bae2d3ad Downloading [==================================================>]  135.4kB/135.4kB
+ 04d7bae2d3ad Verifying Checksum 
+ 04d7bae2d3ad Download complete 
+ 1617e25568b2 Extracting [===>                                               ]  32.77kB/480.9kB
+ 43c4264eed91 Downloading [>                                                  ]  48.49kB/3.624MB
+ 6d083c262ef7 Downloading [==================================================>]     141B/141B
+ 6d083c262ef7 Verifying Checksum 
+ 6d083c262ef7 Download complete 
+ 61ad5fa1174a Downloading [>                                                  ]  48.51kB/3.488MB
+ 43c4264eed91 Downloading [==================================================>]  3.624MB/3.624MB
+ 43c4264eed91 Download complete 
+ 43c4264eed91 Extracting [>                                                  ]  65.54kB/3.624MB
+ 61ad5fa1174a Downloading [==================================================>]  3.488MB/3.488MB
+ 61ad5fa1174a Verifying Checksum 
+ 61ad5fa1174a Download complete 
+ ee380b05b513 Downloading [===>                                               ]  3.501kB/52.66kB
+ faa25921ada9 Downloading [>                                                  ]  48.51kB/4.324MB
+ ee380b05b513 Downloading [==================================================>]  52.66kB/52.66kB
+ ee380b05b513 Verifying Checksum 
+ ee380b05b513 Download complete 
+ 1f925eb55205 Downloading [===============================>                   ]  16.38kB/26.4kB
+ 1f925eb55205 Downloading [==================================================>]   26.4kB/26.4kB
+ 1f925eb55205 Verifying Checksum 
+ 1f925eb55205 Download complete 
+ 1617e25568b2 Extracting [===========================>                       ]  262.1kB/480.9kB
+ 43c4264eed91 Extracting [===>                                               ]  262.1kB/3.624MB
+ faa25921ada9 Verifying Checksum 
+ faa25921ada9 Download complete 
+ 43c4264eed91 Extracting [==================================================>]  3.624MB/3.624MB
+ 2766b5007f5a Downloading [==============>                                    ]  3.501kB/11.92kB
+ 2766b5007f5a Download complete 
+ 915d19682ac9 Downloading [>                                                  ]    540kB/55.51MB
+ 90075272e866 Downloading [>                                                  ]  530.7kB/65.66MB
+ 1617e25568b2 Extracting [===============================================>   ]  458.8kB/480.9kB
+ 1617e25568b2 Extracting [==================================================>]  480.9kB/480.9kB
+ 1617e25568b2 Extracting [==================================================>]  480.9kB/480.9kB
+ 43c4264eed91 Pull complete 
+ 90075272e866 Downloading [==========================>                        ]  34.26MB/65.66MB
+ 915d19682ac9 Downloading [=================================>                 ]  36.77MB/55.51MB
+ c077747462c3 Downloading [==================================================>]  1.225kB/1.225kB
+ c077747462c3 Verifying Checksum 
+ c077747462c3 Download complete 
+ 915d19682ac9 Downloading [==================================>                ]  37.85MB/55.51MB
+ 90075272e866 Downloading [==========================>                        ]  35.33MB/65.66MB
+ 6d083c262ef7 Extracting [==================================================>]     141B/141B
+ 6d083c262ef7 Extracting [==================================================>]     141B/141B
+ 915d19682ac9 Verifying Checksum 
+ 915d19682ac9 Download complete 
+ 90075272e866 Downloading [=============================>                     ]  39.05MB/65.66MB
+ f18232174bc9 Downloading [>                                                  ]  48.51kB/3.642MB
+ f18232174bc9 Verifying Checksum 
+ f18232174bc9 Download complete 
+ f18232174bc9 Extracting [>                                                  ]  65.54kB/3.642MB
+ 90075272e866 Verifying Checksum 
+ 90075272e866 Download complete 
+ 1b7f9cd581ee Pull complete 
+ f6cd406c8d97 Downloading [>                                                  ]  163.2kB/16.18MB
+ f18232174bc9 Extracting [===>                                               ]  262.1kB/3.642MB
+ f6cd406c8d97 Downloading [==========>                                        ]  3.276MB/16.18MB
+ 74f6a226ed93 Downloading [>                                                  ]    540kB/53.06MB
+ f6cd406c8d97 Verifying Checksum 
+ f6cd406c8d97 Download complete 
+ e6744199aa66 Downloading [==================================================>]     126B/126B
+ e6744199aa66 Verifying Checksum 
+ e6744199aa66 Download complete 
+ f18232174bc9 Extracting [==================================================>]  3.642MB/3.642MB
+ 74f6a226ed93 Downloading [=====================================>             ]  39.47MB/53.06MB
+ 210b280f9556 Extracting [=>                                                 ]  32.77kB/901.4kB
+ 74f6a226ed93 Verifying Checksum 
+ 74f6a226ed93 Download complete 
+ cda86626eeb3 Downloading [==================================================>]  2.281kB/2.281kB
+ cda86626eeb3 Verifying Checksum 
+ cda86626eeb3 Download complete 
+ 304e58a73598 Downloading [>                                                  ]  529.7kB/126.5MB
+ f18232174bc9 Pull complete 
+ 210b280f9556 Extracting [==============>                                    ]  262.1kB/901.4kB
+ 304e58a73598 Downloading [===========>                                       ]  28.79MB/126.5MB
+ 34d370b15c91 Downloading [==================================================>]     154B/154B
+ 34d370b15c91 Verifying Checksum 
+ 34d370b15c91 Download complete 
+ 6e6e21ba9841 Downloading [>                                                  ]  48.51kB/4.217MB
+ 304e58a73598 Downloading [============>                                      ]  32.54MB/126.5MB
+ f6cd406c8d97 Extracting [>                                                  ]  163.8kB/16.18MB
+ 6e6e21ba9841 Downloading [================>                                  ]  1.376MB/4.217MB
+ 304e58a73598 Downloading [=============>                                     ]  35.21MB/126.5MB
+ 6e6e21ba9841 Verifying Checksum 
+ 6e6e21ba9841 Download complete 
+ a34edb4da622 Downloading [==================================================>]  2.283kB/2.283kB
+ a34edb4da622 Verifying Checksum 
+ a34edb4da622 Download complete 
+ 304e58a73598 Downloading [====================>                              ]  51.69MB/126.5MB
+ 210b280f9556 Extracting [===================>                               ]  360.4kB/901.4kB
+ 210b280f9556 Extracting [==================================================>]  901.4kB/901.4kB
+ f7cdaeb78991 Downloading [==================================================>]   1.57kB/1.57kB
+ f7cdaeb78991 Verifying Checksum 
+ f7cdaeb78991 Download complete 
+ f6cd406c8d97 Extracting [=>                                                 ]  327.7kB/16.18MB
+ 304e58a73598 Downloading [================================>                  ]  83.19MB/126.5MB
+ 304e58a73598 Verifying Checksum 
+ 304e58a73598 Download complete 
+ f6cd406c8d97 Extracting [=>                                                 ]  491.5kB/16.18MB
+ f6cd406c8d97 Extracting [============>                                      ]  3.932MB/16.18MB
+ f6cd406c8d97 Extracting [==============================>                    ]  9.994MB/16.18MB
+ f6cd406c8d97 Extracting [==================================================>]  16.18MB/16.18MB
+ 6d083c262ef7 Pull complete 
+ f6cd406c8d97 Pull complete 
+ 1617e25568b2 Pull complete 
+ 210b280f9556 Pull complete 
+ 61ad5fa1174a Extracting [>                                                  ]  65.54kB/3.488MB
+ 81717818649a Extracting [==================================================>]     172B/172B
+ 81717818649a Extracting [==================================================>]     172B/172B
+ 25011dfbfdeb Extracting [>                                                  ]  557.1kB/58.97MB
+ 81717818649a Pull complete 
+ 3ae6141cfd99 Extracting [==================================================>]     116B/116B
+ 3ae6141cfd99 Extracting [==================================================>]     116B/116B
+ 3ae6141cfd99 Pull complete 
+ 25b77f59fd95 Extracting [>                                                  ]  557.1kB/111.3MB
+ 61ad5fa1174a Extracting [=========>                                         ]  655.4kB/3.488MB
+ 74f6a226ed93 Extracting [>                                                  ]  557.1kB/53.06MB
+ 61ad5fa1174a Extracting [===========>                                       ]  786.4kB/3.488MB
+ 74f6a226ed93 Extracting [==>                                                ]  2.228MB/53.06MB
+ 25011dfbfdeb Extracting [=====>                                             ]  6.128MB/58.97MB
+ 25b77f59fd95 Extracting [>                                                  ]  1.114MB/111.3MB
+ 61ad5fa1174a Extracting [==================================>                ]  2.425MB/3.488MB
+ 74f6a226ed93 Extracting [====>                                              ]  5.014MB/53.06MB
+ 74f6a226ed93 Extracting [=====>                                             ]  6.128MB/53.06MB
+ 25011dfbfdeb Extracting [========>                                          ]   9.47MB/58.97MB
+ 25b77f59fd95 Extracting [=>                                                 ]  2.228MB/111.3MB
+ 61ad5fa1174a Extracting [=================================================> ]  3.473MB/3.488MB
+ 61ad5fa1174a Extracting [==================================================>]  3.488MB/3.488MB
+ 74f6a226ed93 Extracting [==========>                                        ]  11.14MB/53.06MB
+ 25011dfbfdeb Extracting [===========>                                       ]  13.37MB/58.97MB
+ 25b77f59fd95 Extracting [===>                                               ]  8.356MB/111.3MB
+ 74f6a226ed93 Extracting [==============>                                    ]   15.6MB/53.06MB
+ 25011dfbfdeb Extracting [==============>                                    ]  17.27MB/58.97MB
+ 25b77f59fd95 Extracting [=======>                                           ]   15.6MB/111.3MB
+ 74f6a226ed93 Extracting [===================>                               ]  20.61MB/53.06MB
+ 25011dfbfdeb Extracting [==================>                                ]  22.28MB/58.97MB
+ 25b77f59fd95 Extracting [==========>                                        ]  22.84MB/111.3MB
+ 74f6a226ed93 Extracting [========================>                          ]  26.18MB/53.06MB
+ 25011dfbfdeb Extracting [=====================>                             ]  25.62MB/58.97MB
+ 25b77f59fd95 Extracting [=============>                                     ]  29.52MB/111.3MB
+ 25b77f59fd95 Extracting [===============>                                   ]  35.09MB/111.3MB
+ 61ad5fa1174a Pull complete 
+ 25011dfbfdeb Extracting [=========================>                         ]  30.08MB/58.97MB
+ 74f6a226ed93 Extracting [=============================>                     ]   31.2MB/53.06MB
+ 25011dfbfdeb Extracting [===========================>                       ]  32.31MB/58.97MB
+ 74f6a226ed93 Extracting [==============================>                    ]  32.31MB/53.06MB
+ 25b77f59fd95 Extracting [==================>                                ]  40.11MB/111.3MB
+ faa25921ada9 Extracting [>                                                  ]  65.54kB/4.324MB
+ 25011dfbfdeb Extracting [======================================>            ]  45.12MB/58.97MB
+ 25b77f59fd95 Extracting [=====================>                             ]  48.46MB/111.3MB
+ 74f6a226ed93 Extracting [==================================>                ]  36.21MB/53.06MB
+ 25b77f59fd95 Extracting [========================>                          ]  54.59MB/111.3MB
+ 74f6a226ed93 Extracting [======================================>            ]  40.67MB/53.06MB
+ 25011dfbfdeb Extracting [=================================================> ]  58.49MB/58.97MB
+ 25011dfbfdeb Extracting [==================================================>]  58.97MB/58.97MB
+ 25b77f59fd95 Extracting [=========================>                         ]  56.82MB/111.3MB
+ 25b77f59fd95 Extracting [=============================>                     ]  65.18MB/111.3MB
+ 74f6a226ed93 Extracting [=========================================>         ]  44.56MB/53.06MB
+ 74f6a226ed93 Extracting [=============================================>     ]  48.46MB/53.06MB
+ 74f6a226ed93 Extracting [==================================================>]  53.06MB/53.06MB
+ 25b77f59fd95 Extracting [================================>                  ]   71.3MB/111.3MB
+ 25b77f59fd95 Extracting [================================>                  ]  71.86MB/111.3MB
+ faa25921ada9 Extracting [===>                                               ]  262.1kB/4.324MB
+ 25b77f59fd95 Extracting [================================>                  ]  72.42MB/111.3MB
+ faa25921ada9 Extracting [===>                                               ]  327.7kB/4.324MB
+ 25b77f59fd95 Extracting [================================>                  ]  72.97MB/111.3MB
+ faa25921ada9 Extracting [=====================================>             ]  3.211MB/4.324MB
+ 25b77f59fd95 Extracting [=================================>                 ]   75.2MB/111.3MB
+ faa25921ada9 Extracting [==================================================>]  4.324MB/4.324MB
+ faa25921ada9 Extracting [==================================================>]  4.324MB/4.324MB
+ 25b77f59fd95 Extracting [===================================>               ]  78.54MB/111.3MB
+ 25b77f59fd95 Extracting [====================================>              ]  80.77MB/111.3MB
+ 25b77f59fd95 Extracting [====================================>              ]  81.89MB/111.3MB
+ 25b77f59fd95 Extracting [=====================================>             ]  82.44MB/111.3MB
+ faa25921ada9 Pull complete 
+ 25b77f59fd95 Extracting [=====================================>             ]  83.56MB/111.3MB
+ 25b77f59fd95 Extracting [======================================>            ]  86.34MB/111.3MB
+ ee380b05b513 Extracting [===============================>                   ]  32.77kB/52.66kB
+ ee380b05b513 Extracting [==================================================>]  52.66kB/52.66kB
+ 25b77f59fd95 Extracting [=======================================>           ]  88.01MB/111.3MB
+ 25b77f59fd95 Extracting [=========================================>         ]  93.03MB/111.3MB
+ ee380b05b513 Pull complete 
+ 1f925eb55205 Extracting [==================================================>]   26.4kB/26.4kB
+ 1f925eb55205 Extracting [==================================================>]   26.4kB/26.4kB
+ 25b77f59fd95 Extracting [============================================>      ]  98.04MB/111.3MB
+ 25b77f59fd95 Extracting [============================================>      ]  99.71MB/111.3MB
+ 25b77f59fd95 Extracting [=================================================> ]  110.9MB/111.3MB
+ 25b77f59fd95 Extracting [==================================================>]  111.3MB/111.3MB
+ 25011dfbfdeb Pull complete 
+ 1f925eb55205 Pull complete 
+ 25b77f59fd95 Pull complete 
+ 74f6a226ed93 Pull complete 
+ e6744199aa66 Extracting [==================================================>]     126B/126B
+ e6744199aa66 Extracting [==================================================>]     126B/126B
+ 6c25da34e03f Extracting [==================================================>]  9.669kB/9.669kB
+ 6c25da34e03f Extracting [==================================================>]  9.669kB/9.669kB
+ f6c7e1c85066 Extracting [>                                                  ]  557.1kB/53.89MB
+ e6744199aa66 Pull complete 
+ cda86626eeb3 Extracting [==================================================>]  2.281kB/2.281kB
+ cda86626eeb3 Extracting [==================================================>]  2.281kB/2.281kB
+ 90075272e866 Extracting [>                                                  ]  557.1kB/65.66MB
+ 6c25da34e03f Pull complete 
+ a88782f92806 Extracting [==================================================>]     128B/128B
+ a88782f92806 Extracting [==================================================>]     128B/128B
+ 90075272e866 Extracting [===>                                               ]  4.456MB/65.66MB
+ cda86626eeb3 Pull complete 
+ f6c7e1c85066 Extracting [==>                                                ]  2.228MB/53.89MB
+ 90075272e866 Extracting [======>                                            ]  8.913MB/65.66MB
+ f6c7e1c85066 Extracting [========>                                          ]  8.913MB/53.89MB
+ 90075272e866 Extracting [=========>                                         ]  12.81MB/65.66MB
+ f6c7e1c85066 Extracting [=============>                                     ]  15.04MB/53.89MB
+ 90075272e866 Extracting [=================>                                 ]   23.4MB/65.66MB
+ f6c7e1c85066 Extracting [==================>                                ]   19.5MB/53.89MB
+ 90075272e866 Extracting [========================>                          ]  31.75MB/65.66MB
+ 304e58a73598 Extracting [>                                                  ]  557.1kB/126.5MB
+ 90075272e866 Extracting [=========================>                         ]  32.87MB/65.66MB
+ f6c7e1c85066 Extracting [======================>                            ]  23.95MB/53.89MB
+ a88782f92806 Pull complete 
+ d8d21be4bf02 Extracting [==================================================>]     169B/169B
+ d8d21be4bf02 Extracting [==================================================>]     169B/169B
+ 304e58a73598 Extracting [>                                                  ]  1.114MB/126.5MB
+ 90075272e866 Extracting [=============================>                     ]  38.99MB/65.66MB
+ f6c7e1c85066 Extracting [=============================>                     ]  32.31MB/53.89MB
+ 304e58a73598 Extracting [====>                                              ]   11.7MB/126.5MB
+ 90075272e866 Extracting [==================================>                ]  45.68MB/65.66MB
+ f6c7e1c85066 Extracting [============================================>      ]  48.46MB/53.89MB
+ 304e58a73598 Extracting [=========>                                         ]   23.4MB/126.5MB
+ 90075272e866 Extracting [=======================================>           ]  51.25MB/65.66MB
+ f6c7e1c85066 Extracting [==================================================>]  53.89MB/53.89MB
+ 304e58a73598 Extracting [==============>                                    ]  36.77MB/126.5MB
+ 90075272e866 Extracting [============================================>      ]  57.93MB/65.66MB
+ 304e58a73598 Extracting [=======================>                           ]  60.16MB/126.5MB
+ 90075272e866 Extracting [================================================>  ]   63.5MB/65.66MB
+ 304e58a73598 Extracting [==================================>                ]   86.9MB/126.5MB
+ 90075272e866 Extracting [==================================================>]  65.66MB/65.66MB
+ 304e58a73598 Extracting [=============================================>     ]  115.9MB/126.5MB
+ 304e58a73598 Extracting [================================================>  ]  123.1MB/126.5MB
+ 304e58a73598 Extracting [=================================================> ]  124.8MB/126.5MB
+ 304e58a73598 Extracting [==================================================>]  126.5MB/126.5MB
+ f6c7e1c85066 Pull complete 
+ d8d21be4bf02 Pull complete 
+ f925e29e3973 Extracting [==================================================>]     604B/604B
+ f925e29e3973 Extracting [==================================================>]     604B/604B
+ 90075272e866 Pull complete 
+ 304e58a73598 Pull complete 
+ 6117bd39f23f Extracting [==================================================>]  6.111kB/6.111kB
+ 6117bd39f23f Extracting [==================================================>]  6.111kB/6.111kB
+ 34d370b15c91 Extracting [==================================================>]     154B/154B
+ 34d370b15c91 Extracting [==================================================>]     154B/154B
+ 915d19682ac9 Extracting [>                                                  ]  557.1kB/55.51MB
+ f925e29e3973 Pull complete 
+ 6117bd39f23f Pull complete 
+ 67c7af41f1ac Extracting [==================================================>]  2.679kB/2.679kB
+ 67c7af41f1ac Extracting [==================================================>]  2.679kB/2.679kB
+ 509688edf37b Extracting [==================================================>]     185B/185B
+ 34d370b15c91 Pull complete 
+ 6e6e21ba9841 Extracting [>                                                  ]  65.54kB/4.217MB
+ 509688edf37b Pull complete 
+ 6e6e21ba9841 Extracting [==================================================>]  4.217MB/4.217MB
+ 915d19682ac9 Extracting [=>                                                 ]  1.114MB/55.51MB
+ postgres Pulled 
+ 6e6e21ba9841 Pull complete 
+ 67c7af41f1ac Pull complete 
+ e2015cdcb081 Extracting [==================================================>]  3.088kB/3.088kB
+ e2015cdcb081 Extracting [==================================================>]  3.088kB/3.088kB
+ a34edb4da622 Extracting [==================================================>]  2.283kB/2.283kB
+ a34edb4da622 Extracting [==================================================>]  2.283kB/2.283kB
+ 915d19682ac9 Extracting [=>                                                 ]  1.671MB/55.51MB
+ e2015cdcb081 Pull complete 
+ d0079b8baf74 Extracting [==================================================>]  4.023kB/4.023kB
+ d0079b8baf74 Extracting [==================================================>]  4.023kB/4.023kB
+ a34edb4da622 Pull complete 
+ f7cdaeb78991 Extracting [==================================================>]   1.57kB/1.57kB
+ f7cdaeb78991 Extracting [==================================================>]   1.57kB/1.57kB
+ d0079b8baf74 Pull complete 
+ ba920d0bcda2 Extracting [==================================================>]   1.44kB/1.44kB
+ ba920d0bcda2 Extracting [==================================================>]   1.44kB/1.44kB
+ f7cdaeb78991 Pull complete 
+ ba920d0bcda2 Pull complete 
+ kafka Pulled 
+ 04d7bae2d3ad Extracting [============>                                      ]  32.77kB/135.4kB
+ 04d7bae2d3ad Extracting [==================================================>]  135.4kB/135.4kB
+ 04d7bae2d3ad Extracting [==================================================>]  135.4kB/135.4kB
+ 915d19682ac9 Extracting [==>                                                ]  2.228MB/55.51MB
+ 915d19682ac9 Extracting [===>                                               ]  3.899MB/55.51MB
+ 04d7bae2d3ad Pull complete 
+ 8b2021cd7028 Extracting [==================================================>]     100B/100B
+ 8b2021cd7028 Extracting [==================================================>]     100B/100B
+ 8b2021cd7028 Pull complete 
+ 23133967bfe3 Extracting [==================================================>]     722B/722B
+ 23133967bfe3 Extracting [==================================================>]     722B/722B
+ 23133967bfe3 Pull complete 
+ prometheus Pulled 
+ 915d19682ac9 Extracting [====>                                              ]  4.456MB/55.51MB
+ 915d19682ac9 Extracting [======>                                            ]  7.242MB/55.51MB
+ 915d19682ac9 Extracting [========>                                          ]   9.47MB/55.51MB
+ 915d19682ac9 Extracting [===========>                                       ]  12.81MB/55.51MB
+ 915d19682ac9 Extracting [==============>                                    ]  16.15MB/55.51MB
+ 915d19682ac9 Extracting [=====================>                             ]   23.4MB/55.51MB
+ 915d19682ac9 Extracting [============================>                      ]   31.2MB/55.51MB
+ 915d19682ac9 Extracting [=================================>                 ]  37.32MB/55.51MB
+ 915d19682ac9 Extracting [======================================>            ]  42.89MB/55.51MB
+ 915d19682ac9 Extracting [===========================================>       ]  47.91MB/55.51MB
+ 915d19682ac9 Extracting [================================================>  ]  54.03MB/55.51MB
+ 915d19682ac9 Extracting [==================================================>]  55.51MB/55.51MB
+ 915d19682ac9 Pull complete 
+ 2766b5007f5a Extracting [==================================================>]  11.92kB/11.92kB
+ 2766b5007f5a Extracting [==================================================>]  11.92kB/11.92kB
+ 2766b5007f5a Pull complete 
+ c077747462c3 Extracting [==================================================>]  1.225kB/1.225kB
+ c077747462c3 Extracting [==================================================>]  1.225kB/1.225kB
+ c077747462c3 Pull complete 
+ grafana Pulled 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.13kB done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 446B 0.0s done
+#2 DONE 0.0s
+
+#3 [portsync-core internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.32kB 0.0s done
+#3 DONE 0.0s
+
+#4 [simulator] resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#4 ...
+
+#5 [auth] docker/dockerfile:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#4 [simulator] resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#4 DONE 1.3s
+
+#6 [simulator] docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+#6 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e done
+#6 sha256:68ebc061390d9a7d6e194f9d58309c754a53cb8b4e3b0d89593920f42f4a9da4 1.26kB / 1.26kB done
+#6 sha256:96918c57e42509b97f10c074d80672ecdbd3bb7dcd38c1bd95960cf291207416 11.98MB / 11.98MB 0.1s
+#6 sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 8.40kB / 8.40kB done
+#6 sha256:b5f3b260a9678e1d83d2fce86eeddf79420b79147eaba2a25986f47133d73720 482B / 482B done
+#6 sha256:68ebc061390d9a7d6e194f9d58309c754a53cb8b4e3b0d89593920f42f4a9da4 1.26kB / 1.26kB done
+#6 sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 8.40kB / 8.40kB done
+#6 sha256:b5f3b260a9678e1d83d2fce86eeddf79420b79147eaba2a25986f47133d73720 482B / 482B done
+#6 extracting sha256:96918c57e42509b97f10c074d80672ecdbd3bb7dcd38c1bd95960cf291207416
+#6 sha256:96918c57e42509b97f10c074d80672ecdbd3bb7dcd38c1bd95960cf291207416 11.98MB / 11.98MB 0.2s done
+#6 extracting sha256:96918c57e42509b97f10c074d80672ecdbd3bb7dcd38c1bd95960cf291207416 0.1s done
+#6 DONE 0.5s
+
+#7 [simulator internal] load build definition from Dockerfile
+#7 transferring dockerfile: 1.32kB done
+#7 DONE 0.5s
+
+#8 [portsync-core internal] load build definition from Dockerfile
+#8 transferring dockerfile: 1.32kB done
+#8 DONE 0.5s
+
+#9 [auth] library/node:pull token for registry-1.docker.io
+#9 DONE 0.0s
+
+#10 [auth] library/nginx:pull token for registry-1.docker.io
+#10 DONE 0.0s
+
+#11 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#11 DONE 0.0s
+
+#12 [portsync-core internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#12 ...
+
+#13 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#13 DONE 1.4s
+
+#14 [simulator internal] load metadata for docker.io/library/eclipse-temurin:21-jdk
+#14 DONE 0.9s
+
+#12 [simulator internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#12 DONE 0.9s
+
+#15 [frontend internal] load metadata for docker.io/library/nginx:1.27-alpine
+#15 DONE 1.4s
+
+#16 [simulator internal] load .dockerignore
+#16 transferring context: 122B done
+#16 DONE 0.0s
+
+#17 [frontend internal] load .dockerignore
+#17 transferring context: 67B done
+#17 DONE 0.0s
+
+#18 [portsync-core internal] load .dockerignore
+#18 transferring context: 122B done
+#18 DONE 0.0s
+
+#19 [frontend internal] load build context
+#19 transferring context: 193.33kB 0.0s done
+#19 DONE 0.0s
+
+#20 [simulator internal] load build context
+#20 transferring context: 495.36kB 0.0s done
+#20 DONE 0.0s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 resolve docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef 0.1s done
+#21 ...
+
+#22 [portsync-core internal] load build context
+#22 transferring context: 495.36kB 0.0s done
+#22 DONE 0.0s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef 5.93kB / 5.93kB done
+#21 sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b 14.68MB / 41.84MB 0.1s
+#21 sha256:80b6aebe2f990697ada73fdbe451c7e9ec5e4adbde7a1e3625bc665e3b2fc06e 2.14kB / 2.14kB done
+#21 sha256:0795e0f1cbe674a8989352b0c0fbe5a940b711a0e5b0a0edd8a011c799b32bea 8.74kB / 8.74kB done
+#21 sha256:06ad70e463aa4a17833d00d6d5d346c895ebb66fee637eefd67024dc6cdc2f1c 388B / 388B 0.1s done
+#21 sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b 41.84MB / 41.84MB 0.2s
+#21 extracting sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b
+#21 sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b 41.84MB / 41.84MB 0.5s done
+#21 sha256:5d8dab7db2742f65eb651ddb9c472895877637821edd25947a57e6809ea99ecb 7.34MB / 23.11MB 3.1s
+#21 sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb 6.29MB / 53.10MB 3.1s
+#21 sha256:3b4157e3a962cdb99242cd5b145bcc2124d0db0c9849175dd981fe78640d0a72 0B / 158B 3.1s
+#21 sha256:5d8dab7db2742f65eb651ddb9c472895877637821edd25947a57e6809ea99ecb 23.11MB / 23.11MB 3.2s
+#21 sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb 48.23MB / 53.10MB 3.2s
+#21 sha256:3b4157e3a962cdb99242cd5b145bcc2124d0db0c9849175dd981fe78640d0a72 158B / 158B 3.2s
+#21 sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb 53.10MB / 53.10MB 3.3s
+#21 sha256:3b4157e3a962cdb99242cd5b145bcc2124d0db0c9849175dd981fe78640d0a72 158B / 158B 3.3s done
+#21 sha256:550bcd7b9380af835ebbbf439f5ddcaebfb2af951dc75d4bcbdc261cbe3917f0 0B / 2.46kB 3.8s
+#21 sha256:5d8dab7db2742f65eb651ddb9c472895877637821edd25947a57e6809ea99ecb 23.11MB / 23.11MB 3.8s done
+#21 sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb 53.10MB / 53.10MB 3.8s done
+#21 sha256:550bcd7b9380af835ebbbf439f5ddcaebfb2af951dc75d4bcbdc261cbe3917f0 2.46kB / 2.46kB 3.9s done
+#21 sha256:550bcd7b9380af835ebbbf439f5ddcaebfb2af951dc75d4bcbdc261cbe3917f0 2.46kB / 2.46kB 3.9s done
+#21 extracting sha256:5d8dab7db2742f65eb651ddb9c472895877637821edd25947a57e6809ea99ecb
+#21 extracting sha256:5d8dab7db2742f65eb651ddb9c472895877637821edd25947a57e6809ea99ecb 1.5s done
+#21 ...
+
+#23 [simulator build  1/13] FROM docker.io/library/eclipse-temurin:21-jdk@sha256:f9bf7e9fe2f9bc4657537c1a7e20c768f0c3bafca41598263be4714783dd62eb
+#23 resolve docker.io/library/eclipse-temurin:21-jdk@sha256:f9bf7e9fe2f9bc4657537c1a7e20c768f0c3bafca41598263be4714783dd62eb 0.1s done
+#23 sha256:06ad70e463aa4a17833d00d6d5d346c895ebb66fee637eefd67024dc6cdc2f1c 388B / 388B 0.1s done
+#23 sha256:442a743d9272be15c9872915eab0f7a1b6bb45b7c16c613acf172e2d7483061d 2.14kB / 2.14kB done
+#23 sha256:a4ab626836123d37d64448578f511211694b118a22936d328d870f8ac0f70825 9.13kB / 9.13kB done
+#23 sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b 41.84MB / 41.84MB 0.5s done
+#23 sha256:ffef58b983c1fc65e2b180d4a71e8d35211c0f21f4c5ff937c831b94fd5f3d7e 27.03MB / 27.03MB 0.5s done
+#23 sha256:4411437139e9ca69460255dfb3dfc7a92fdb38dc8aa6f93dc99ab7380e7b5781 158.12MB / 158.12MB 1.4s done
+#23 sha256:f9bf7e9fe2f9bc4657537c1a7e20c768f0c3bafca41598263be4714783dd62eb 5.93kB / 5.93kB done
+#23 extracting sha256:4e07a0f12b2c009f98326fa391e869bd52fc63728c482400af6cb752bc16744b 2.3s done
+#23 sha256:7b5b1cd28d30690f97801a3a5f73b0de4dba50777f3a89d111f5f9201a3a7bf2 2.46kB / 2.46kB 0.6s done
+#23 sha256:cb3511313ef09e63104df472ecde5f05c8e2840b9e6096d16b0be6388f90361f 158B / 158B 0.6s done
+#23 extracting sha256:06ad70e463aa4a17833d00d6d5d346c895ebb66fee637eefd67024dc6cdc2f1c done
+#23 extracting sha256:ffef58b983c1fc65e2b180d4a71e8d35211c0f21f4c5ff937c831b94fd5f3d7e 2.6s done
+#23 ...
+
+#24 [frontend stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#24 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#24 sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 10.33kB / 10.33kB done
+#24 sha256:62223d644fa234c3a1cc785ee14242ec47a77364226f1c811d2f669f96dc2ac8 2.50kB / 2.50kB done
+#24 sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea 10.79kB / 10.79kB done
+#24 sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 1.79MB / 1.79MB 0.9s done
+#24 sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 629B / 629B 0.8s done
+#24 extracting sha256:61ca4f733c802afd9e05a32f0de0361b6d713b8b53292dc15fb093229f648674 0.4s done
+#24 sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 955B / 955B 1.4s done
+#24 sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 1.21kB / 1.21kB 1.5s done
+#24 sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 402B / 402B 1.4s done
+#24 sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 1.40kB / 1.40kB 1.7s done
+#24 sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 15.52MB / 15.52MB 2.0s done
+#24 extracting sha256:b464cfdf2a6319875aeb27359ec549790ce14d8214fcb16ef915e4530e5ed235 done
+#24 extracting sha256:d7e5070240863957ebb0b5a44a5729963c3462666baa2947d00628cb5f2d5773 done
+#24 extracting sha256:81bd8ed7ec6789b0cb7f1b47ee731c522f6dba83201ec73cd6bca1350f582948 done
+#24 extracting sha256:197eb75867ef4fcecd4724f17b0972ab0489436860a594a9445f8eaff8155053 done
+#24 extracting sha256:34a64644b756511a2e217f0508e11d1a572085d66cd6dc9a555a082ad49a3102 done
+#24 extracting sha256:39c2ddfd6010082a4a646e7ca44e95aca9bf3eaebc00f17f7ccc2954004f2a7d 0.6s done
+#24 DONE 7.2s
+
+#23 [simulator build  1/13] FROM docker.io/library/eclipse-temurin:21-jdk@sha256:f9bf7e9fe2f9bc4657537c1a7e20c768f0c3bafca41598263be4714783dd62eb
+#23 extracting sha256:4411437139e9ca69460255dfb3dfc7a92fdb38dc8aa6f93dc99ab7380e7b5781 0.1s
+#23 ...
+
+#25 [frontend stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#25 DONE 0.2s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 extracting sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb
+#21 ...
+
+#26 [frontend build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#26 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.1s done
+#26 sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 6.41kB / 6.41kB done
+#26 sha256:2c752226d477b4a886378baa95b9af252be59301b725fdb0b7e15208131505a8 1.72kB / 1.72kB done
+#26 sha256:7c3b093add7c43400ee83b815ab2cda98794a10045bcf76ce9bb2f89b97cbc5c 6.48kB / 6.48kB done
+#26 sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 55.59MB / 55.59MB 2.7s done
+#26 sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 447B / 447B 3.0s done
+#26 sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 1.26MB / 1.26MB 3.0s done
+#26 extracting sha256:f7f2d304681aaa935c9cfd180850cf616ae843efce7682873d6521ded7268937 3.1s done
+#26 extracting sha256:e554276b05e6306c5ad33cd85bfa7f0693083e21f6114db5abf60a20fb413039 0.1s done
+#26 extracting sha256:d39db1cf9caa4f49c5a2e67111fbe6e0d5eea8ede550cb82f3dc2b79712688d6 done
+#26 DONE 7.6s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 ...
+
+#27 [frontend build 2/6] WORKDIR /app
+#27 DONE 0.6s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 extracting sha256:9d8d42fbc5604c4e895096a9217ddaef21c1eb762a43acedbc9c4554b58f65bb 1.0s done
+#21 ...
+
+#28 [frontend build 3/6] COPY package.json package-lock.json ./
+#28 DONE 1.7s
+
+#21 [portsync-core stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:ccbad9e7cb84c27092b12c40a4143e5733e050db9c3784d84f632dcf423fb2ef
+#21 extracting sha256:3b4157e3a962cdb99242cd5b145bcc2124d0db0c9849175dd981fe78640d0a72 done
+#21 extracting sha256:550bcd7b9380af835ebbbf439f5ddcaebfb2af951dc75d4bcbdc261cbe3917f0 done
+#21 DONE 10.1s
+
+#23 [portsync-core build  1/13] FROM docker.io/library/eclipse-temurin:21-jdk@sha256:f9bf7e9fe2f9bc4657537c1a7e20c768f0c3bafca41598263be4714783dd62eb
+#23 extracting sha256:4411437139e9ca69460255dfb3dfc7a92fdb38dc8aa6f93dc99ab7380e7b5781 1.7s done
+#23 extracting sha256:cb3511313ef09e63104df472ecde5f05c8e2840b9e6096d16b0be6388f90361f done
+#23 extracting sha256:7b5b1cd28d30690f97801a3a5f73b0de4dba50777f3a89d111f5f9201a3a7bf2 done
+#23 DONE 10.1s
+
+#29 [simulator build  2/13] WORKDIR /src
+#29 DONE 0.0s
+
+#30 [simulator build  3/13] COPY .mvn .mvn
+#30 DONE 0.0s
+
+#31 [portsync-core build  4/13] COPY mvnw pom.xml ./
+#31 DONE 0.0s
+
+#32 [simulator build  5/13] COPY portsync-events/pom.xml portsync-events/
+#32 DONE 0.3s
+
+#33 [portsync-core build  6/13] COPY simulator/pom.xml simulator/
+#33 DONE 0.2s
+
+#34 [portsync-core build  7/13] COPY portsync-core/pom.xml portsync-core/
+#34 DONE 0.1s
+
+#35 [portsync-core build  8/13] COPY loadtest/pom.xml loadtest/
+#35 DONE 0.0s
+
+#36 [portsync-core build  9/13] COPY portsync-events/src portsync-events/src
+#36 DONE 0.0s
+
+#37 [portsync-core build 10/13] COPY simulator/src simulator/src
+#37 DONE 0.0s
+
+#38 [simulator build 11/13] COPY portsync-core/src portsync-core/src
+#38 DONE 0.0s
+
+#39 [portsync-core build 12/13] COPY loadtest/src loadtest/src
+#39 DONE 0.0s
+
+#40 [simulator build 11/13] COPY portsync-core/src portsync-core/src
+#40 CACHED
+
+#41 [simulator build  7/13] COPY portsync-core/pom.xml portsync-core/
+#41 CACHED
+
+#42 [simulator build  8/13] COPY loadtest/pom.xml loadtest/
+#42 CACHED
+
+#43 [simulator build 10/13] COPY simulator/src simulator/src
+#43 CACHED
+
+#44 [simulator build  9/13] COPY portsync-events/src portsync-events/src
+#44 CACHED
+
+#45 [simulator build  6/13] COPY simulator/pom.xml simulator/
+#45 CACHED
+
+#46 [simulator build  3/13] COPY .mvn .mvn
+#46 CACHED
+
+#47 [simulator build  4/13] COPY mvnw pom.xml ./
+#47 CACHED
+
+#48 [simulator build  5/13] COPY portsync-events/pom.xml portsync-events/
+#48 CACHED
+
+#49 [simulator build 12/13] COPY loadtest/src loadtest/src
+#49 CACHED
+
+#50 [simulator build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl simulator -am package -DskipTests  && cp simulator/target/simulator.jar /app.jar
+#50 ...
+
+#51 [frontend build 4/6] RUN npm ci --no-audit --no-fund
+#51 2.099 npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+#51 5.145 
+#51 5.145 added 152 packages in 5s
+#51 5.150 npm notice
+#51 5.150 npm notice New major version of npm available! 10.9.9 -> 12.2.0
+#51 5.150 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#51 5.150 npm notice To update run: npm install -g npm@12.2.0
+#51 5.150 npm notice
+#51 DONE 5.3s
+
+#52 [frontend build 5/6] COPY . .
+#52 DONE 1.6s
+
+#53 [simulator stage-1 2/4] RUN apt-get update  && apt-get install -y --no-install-recommends curl  && rm -rf /var/lib/apt/lists/*  && useradd --system --uid 10001 --home /app app
+#53 0.523 Get:1 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+#53 0.778 Get:2 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+#53 0.847 Get:3 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [739 kB]
+#53 1.169 Get:4 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [609 kB]
+#53 1.244 Get:5 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [24.6 kB]
+#53 1.247 Get:6 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [252 kB]
+#53 1.354 Get:7 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+#53 1.646 Get:8 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+#53 1.828 Get:9 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+#53 1.889 Get:10 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+#53 2.090 Get:11 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1,874 kB]
+#53 2.495 Get:12 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+#53 3.276 Get:13 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [625 kB]
+#53 3.309 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [417 kB]
+#53 3.309 Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [26.1 kB]
+#53 3.309 Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [910 kB]
+#53 3.309 Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3,308 B]
+#53 4.402 Fetched 26.7 MB in 4s (6,688 kB/s)
+#53 4.402 Reading package lists...
+#53 5.714 Reading package lists...
+#53 6.372 Building dependency tree...
+#53 6.526 Reading state information...
+#53 6.547 curl is already the newest version (8.18.0-1ubuntu2.7).
+#53 6.547 Solving dependencies...
+#53 6.896 0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+#53 7.073 useradd warning: app's uid 10001 is greater than SYS_UID_MAX 999
+#53 DONE 7.1s
+
+#54 [portsync-core stage-1 3/4] WORKDIR /app
+#54 DONE 0.0s
+
+#55 [frontend build 6/6] RUN npm run build
+#55 0.642 
+#55 0.642 > portsync-dashboard@1.0.0 build
+#55 0.642 > tsc -b && vite build
+#55 0.642 
+#55 ...
+
+#56 [portsync-core build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl portsync-core -am package -DskipTests  && cp portsync-core/target/portsync-core.jar /app.jar
+#56 ...
+
+#55 [frontend build 6/6] RUN npm run build
+#55 4.345 vite v6.4.4 building for production...
+#55 4.415 transforming...
+#55 5.578 ✓ 59 modules transformed.
+#55 5.754 rendering chunks...
+#55 5.761 computing gzip size...
+#55 5.772 dist/index.html                   0.91 kB │ gzip:  0.47 kB
+#55 5.772 dist/assets/index-CQ6WG998.css   13.21 kB │ gzip:  3.48 kB
+#55 5.772 dist/assets/index-BCHczW9j.js   214.20 kB │ gzip: 69.16 kB
+#55 5.773 ✓ built in 1.39s
+#55 DONE 5.9s
+
+#56 [portsync-core build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl portsync-core -am package -DskipTests  && cp portsync-core/target/portsync-core.jar /app.jar
+#56 ...
+
+#57 [frontend stage-1 3/3] COPY --from=build /app/dist /usr/share/nginx/html
+#57 DONE 0.1s
+
+#58 [frontend] exporting to image
+#58 exporting layers
+#58 exporting layers 0.6s done
+#58 writing image sha256:489bb2aabead18c372bbde8fa7ec8b9650321f66a79746f446727698078f2314 done
+#58 naming to docker.io/portsync/frontend:local done
+#58 DONE 0.6s
+
+#59 [frontend] resolving provenance for metadata file
+#59 DONE 0.1s
+
+#50 [simulator build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl simulator -am package -DskipTests  && cp simulator/target/simulator.jar /app.jar
+#50 DONE 26.6s
+
+#56 [portsync-core build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl portsync-core -am package -DskipTests  && cp portsync-core/target/portsync-core.jar /app.jar
+#56 ...
+
+#60 [simulator stage-1 4/4] COPY --from=build /app.jar /app/app.jar
+#60 DONE 0.5s
+
+#56 [portsync-core build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl portsync-core -am package -DskipTests  && cp portsync-core/target/portsync-core.jar /app.jar
+#56 ...
+
+#61 [simulator] exporting to image
+#61 exporting layers
+#61 exporting layers 1.2s done
+#61 writing image sha256:f120d4002b748c585501abf907730fc9c032a21aea2a1454cf10d87363aae80a done
+#61 naming to docker.io/portsync/simulator:local done
+#61 DONE 1.2s
+
+#62 [simulator] resolving provenance for metadata file
+#62 DONE 0.0s
+
+#56 [portsync-core build 13/13] RUN --mount=type=cache,target=/root/.m2     sh ./mvnw -B -q -pl portsync-core -am package -DskipTests  && cp portsync-core/target/portsync-core.jar /app.jar
+#56 DONE 30.9s
+
+#63 [portsync-core stage-1 4/4] COPY --from=build /app.jar /app/app.jar
+#63 DONE 0.6s
+
+#64 [portsync-core] exporting to image
+#64 exporting layers 0.4s done
+#64 writing image sha256:a993403ebc05932be237cbbddeb2361276c13e14c2329ff488f188d8678e9eb8 done
+#64 naming to docker.io/portsync/portsync-core:local done
+#64 DONE 0.4s
+
+#65 [portsync-core] resolving provenance for metadata file
+#65 DONE 0.0s
+ portsync-core  Built
+ simulator  Built
+ frontend  Built
+ Network portsync_default  Creating
+ Network portsync_default  Created
+ Volume "portsync_kafka-data"  Creating
+ Volume "portsync_kafka-data"  Created
+ Volume "portsync_pg-data"  Creating
+ Volume "portsync_pg-data"  Created
+ Container portsync-postgres-1  Creating
+ Container portsync-kafka-1  Creating
+ Container portsync-postgres-1  Created
+ Container portsync-kafka-1  Created
+ Container portsync-portsync-core-1  Creating
+ Container portsync-portsync-core-1  Created
+ Container portsync-simulator-1  Creating
+ Container portsync-frontend-1  Creating
+ Container portsync-prometheus-1  Creating
+ Container portsync-simulator-1  Created
+ Container portsync-prometheus-1  Created
+ Container portsync-frontend-1  Created
+ Container portsync-grafana-1  Creating
+ Container portsync-grafana-1  Created
+ Container portsync-postgres-1  Starting
+ Container portsync-kafka-1  Starting
+ Container portsync-postgres-1  Started
+ Container portsync-kafka-1  Started
+ Container portsync-kafka-1  Waiting
+ Container portsync-postgres-1  Waiting
+ Container portsync-postgres-1  Healthy
+ Container portsync-kafka-1  Healthy
+ Container portsync-portsync-core-1  Starting
+ Container portsync-portsync-core-1  Started
+ Container portsync-portsync-core-1  Waiting
+ Container portsync-prometheus-1  Starting
+ Container portsync-portsync-core-1  Waiting
+ Container portsync-prometheus-1  Started
+ Container portsync-grafana-1  Starting
+ Container portsync-grafana-1  Started
+ Container portsync-portsync-core-1  Healthy
+ Container portsync-frontend-1  Starting
+ Container portsync-portsync-core-1  Healthy
+ Container portsync-simulator-1  Starting
+ Container portsync-simulator-1  Started
+ Container portsync-frontend-1  Started
+== Waiting for the opening inventory and live events
+PASS  core processed simulator events (1677)
+PASS  readiness includes db and kafka
+PASS  yard invariants hold
+PASS  yard has containers
+== Waiting for the simulator to finish its opening inventory
+PASS  simulator running
+== Letting the terminal run for 60 s (an hour of simulated time)
+PASS  normal operation produced no rejections (DLQ empty)
+PASS  SLA evaluation is running
+== Fault injection
+{"expectedOutcome":"REJECTED: INVALID_CHECK_DIGIT","events":["BLQU4634980"]}
+{"expectedOutcome":"IGNORED_STALE"}
+PASS  invalid check digit dead-lettered
+PASS  gate-out of unknown container dead-lettered
+PASS  malformed record dead-lettered
+PASS  stale event ignored
+PASS  crane QC01 shows FAULTED
+PASS  invariants still hold
+== Core and simulator agree on the yard
+core: {"A":149,"B":147,"C":135,"D":183}  simulator: {"A":149,"B":147,"C":135,"D":183}
+PASS  per-block occupancy identical in core and simulator
+== Edges of the stack
+PASS  dashboard served by nginx
+PASS  API reachable through the dashboard proxy
+PASS  Prometheus scrapes portsync-core
+PASS  custom metrics exported
+PASS  Grafana healthy with provisioned dashboard
+PASS  JSON logs carry eventId
+Smoke test passed.
+exit=0
