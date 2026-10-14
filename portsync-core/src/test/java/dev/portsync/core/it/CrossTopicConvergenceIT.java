@@ -7,6 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static dev.portsync.core.it.Scenario.arrived;
+import static dev.portsync.core.it.Scenario.berthed;
+import static dev.portsync.core.it.Scenario.discharge;
 import static dev.portsync.core.it.Scenario.dropOff;
 import static dev.portsync.core.it.Scenario.gateOut;
 import static dev.portsync.core.it.Scenario.pickUp;
@@ -75,5 +78,26 @@ class CrossTopicConvergenceIT extends IntegrationTestBase {
         assertThat(dlq.recent(50)).isEmpty();
         assertThat(jdbc.sql("SELECT description FROM container_history WHERE event_id = :id")
                 .param("id", place.eventId()).query(String.class).single()).contains("reported tier 2");
+    }
+
+    @Test
+    @DisplayName("a crane move consumed before the BERTH_ASSIGNED it depends on waits for it and is applied, not dead-lettered")
+    void craneMoveWaitsForBerthAssignmentOnAnotherTopic() throws InterruptedException {
+        String vessel = "V-9001";
+        String container = "OOLU8650421";
+        sendAndAwait(arrived(vessel, at(0), 1, 0));
+
+        // The crane move travels on terminal.crane and the berth assignment on terminal.berth: the
+        // core can see the move first. The listener must hold it back, not reject it.
+        TerminalEvent move = discharge(container, "QC03", vessel, at(31));
+        send(move);
+        Thread.sleep(300);
+        sendAndAwait(berthed(vessel, "B2", at(30), "QC03", "QC04"));
+        awaitProcessed(move.eventId());
+
+        assertThat(outcomeOf(move.eventId())).isEqualTo("APPLIED");
+        assertThat(jdbc.sql("SELECT status FROM containers WHERE number = :n").param("n", container)
+                .query(String.class).single()).isEqualTo("ON_QUAY");
+        assertThat(dlq.recent(50)).isEmpty();
     }
 }
