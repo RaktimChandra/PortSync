@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.1] — 2026-10-21 — the simulator pause race
 
 ### Fixed
 - **Pausing the simulator waits for a tick already under way.** `POST /api/simulation/pause`
@@ -12,6 +12,7 @@
 
 ### Changed
 - CI uses `actions/upload-artifact@v7`; v4 ran on the deprecated Node.js 20.
+- Version 1.1.1 for every Maven module and the dashboard.
 
 ## [1.1.0] — 2026-10-20 — accessibility
 
