@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- **Pausing the simulator waits for a tick already under way.** `POST /api/simulation/pause`
+  stopped the clock and answered at once, while a tick that had checked the clock just before
+  could still change the yard and publish events; the status the pause returned was then one
+  step behind what the core received. Found by TestHarness's core/simulator yard comparison
+  (the core one container ahead, twice). The tick and `SimulationRunner.pause()` now share the
+  simulation's lock (`SimulationRunnerTest`).
+
+### Changed
+- CI uses `actions/upload-artifact@v7`; v4 ran on the deprecated Node.js 20.
+
 ## [1.1.0] — 2026-10-20 — accessibility
 
 ### Fixed

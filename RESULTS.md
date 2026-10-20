@@ -89,6 +89,17 @@ workflow and by CI on `main`:
 The current totals for every commit are in the Actions tab of the repository; CI runs all of the
 above on each push to `main`.
 
+## Simulator pause race, 21 October 2026
+
+TestHarness pauses the simulator and compares its yard with the core's, block by block. Twice
+(TestHarness runs 39464783586 and 39478295663) the core held one container more than the
+status read after the pause, the second time for the whole minute the test waited. The tick
+checked "paused?" without a lock and then ran, so a tick that had passed the check just before
+a pause still changed the yard and published its events afterwards. The tick and the pause now
+share the simulation's lock. `SimulationRunnerTest` holds a 300 ms tick and checks that
+`pause()` returns only after it, and that no tick runs while paused. CI on the fix (run
+39485289857): **164 backend unit tests, 0 failed** (core 86, events 65, simulator 13).
+
 ## Accessibility: colour contrast, 20 October 2026
 
 TestHarness's PortSync adapter scans the running dashboard with axe-core (WCAG 2.0/2.1 A + AA).
