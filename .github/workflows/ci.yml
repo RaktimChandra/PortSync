@@ -16,7 +16,7 @@ permissions:
 jobs:
   backend:
     name: Backend (mvn verify)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
@@ -27,7 +27,17 @@ jobs:
           cache: maven
       # Unit tests (Surefire) + Testcontainers integration tests with real Kafka and PostgreSQL (Failsafe).
       - name: Build and test
-        run: ./mvnw -B -ntp verify
+        run: |
+          set -o pipefail
+          ./mvnw -B -ntp verify 2>&1 | tee "$RUNNER_TEMP/mvn.log"
+      - name: Test summary
+        if: always()
+        run: python3 .github/scripts/test_summary.py backend
+      - name: Build errors
+        if: failure()
+        run: |
+          grep -E "^\[ERROR\]" "$RUNNER_TEMP/mvn.log" | grep -v "^\[ERROR\] *$" | head -15 | tr '\n' ' ' \
+            | sed 's/^/::error title=maven::/'; echo
       - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,7 +58,7 @@ jobs:
 
   frontend:
     name: Frontend (typecheck, test, build)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:
       run:
@@ -72,7 +82,7 @@ jobs:
   e2e:
     name: End-to-end smoke test (Docker Compose)
     needs: [backend, frontend]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
