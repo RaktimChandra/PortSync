@@ -113,11 +113,19 @@ partitions.
 - `ContainersPage.test.tsx`: a wrong check digit is explained while typing and never reaches the API;
   a valid number in the URL is looked up and its location and history shown; a valid but unknown
   number gets a clear "never seen" message (404). `fetch` is stubbed.
+- `contrast.test.ts`: WCAG 2.1 AA (4.5:1) for the colour pairs the dashboard draws, read from
+  `styles.css` for the dark theme and both light-theme blocks: every tone colour on panels, the
+  warning tone on the page background, the primary button's text, a vessel label on its progress
+  fill and a free berth's label; and that the two light blocks stay identical.
+- `QuaySchematic.test.tsx`: the hull fill matches the share of moves done, and the vessel code
+  over the fill is not drawn in the muted colour.
 
 ## What is deliberately not tested
 
-- Browser end-to-end (Playwright/Cypress): the smoke test checks the dashboard is served and the API
-  is reachable through its proxy, but not clicks in a real browser.
+- Browser end-to-end in this repository: the smoke test checks the dashboard is served and the API
+  is reachable through its proxy, but not clicks in a real browser. Real-browser UI, BDD and
+  axe-core accessibility scans of the running stack are run from outside, by the
+  [TestHarness](https://github.com/RaktimChandra/TestHarness) PortSync adapter.
 - Grafana panel queries beyond "the dashboard is provisioned".
 - Behaviour across multiple core instances.
 

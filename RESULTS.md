@@ -88,3 +88,19 @@ workflow and by CI on `main`:
 
 The current totals for every commit are in the Actions tab of the repository; CI runs all of the
 above on each push to `main`.
+
+## Accessibility: colour contrast, 20 October 2026
+
+TestHarness's PortSync adapter scans the running dashboard with axe-core (WCAG 2.0/2.1 A + AA).
+It found two contrast failures in the light theme, each visible only in some terminal states:
+
+| Where | Colours | Contrast before | Fix | After |
+|---|---|---:|---|---:|
+| warning tone (`.tone-warn`, KPI warnings) once warning alerts are open | `--signal` `#b06c00` on white | 4.21:1 (3.74:1 on the page background) | light `--signal` `#965b00` | 5.54:1 (4.92:1) |
+| a berthed vessel's code in the quay schematic once it is almost fully worked | `--muted` `#536a7c` on the progress fill `#9dc6c2` | 3.03:1 (dark theme: 2.97:1) | the label takes `--ink` over the fill | 8.90:1 (dark: 6.05:1) |
+
+Auditing every token pair with `contrast.test.ts` found a third that no scan had reached: the
+primary button's dark text on the light-theme `--signal` was 4.41:1. It now uses
+`--on-signal` (white in the light theme: 5.54:1; unchanged `#1a1204` in the dark theme:
+9.14:1). The test fails on the previous palette (7 failing assertions) and passes on this one.
+
