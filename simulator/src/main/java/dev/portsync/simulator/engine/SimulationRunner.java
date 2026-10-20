@@ -75,15 +75,35 @@ public class SimulationRunner {
         }
     }
 
+    /**
+     * Advances the simulation. The paused check and the tick happen under the simulation's lock,
+     * the same lock {@link #pause()} takes, so a tick that has seen "not paused" finishes before
+     * a pause returns, and no tick starts after it.
+     */
     @Scheduled(fixedRate = 1_000)
     public void tick() {
-        if (!running || clock.isPaused()) {
-            return;
+        synchronized (simulation) {
+            if (!running || clock.isPaused()) {
+                return;
+            }
+            try {
+                simulation.tick(clock.now());
+            } catch (RuntimeException e) {
+                log.error("Simulation tick failed", e);
+            }
         }
-        try {
-            simulation.tick(clock.now());
-        } catch (RuntimeException e) {
-            log.error("Simulation tick failed", e);
+    }
+
+    /**
+     * Freezes simulated time once any tick under way has finished: when this returns, the
+     * simulation's state, and every event it will publish until it resumes, are final. (Pausing
+     * the clock alone let a tick that had already checked the clock change the yard after the
+     * pause was acknowledged; TestHarness's yard comparison saw the core one container ahead of
+     * the status the pause returned.)
+     */
+    public void pause() {
+        synchronized (simulation) {
+            clock.pause();
         }
     }
 

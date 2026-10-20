@@ -40,7 +40,7 @@ jobs:
             | sed 's/^/::error title=maven::/'; echo
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: backend-test-reports
           path: |
@@ -48,7 +48,7 @@ jobs:
             **/target/failsafe-reports/
           if-no-files-found: ignore
       - name: Upload jars
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jars
           path: |
@@ -74,7 +74,7 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dashboard-dist
           path: frontend/dist

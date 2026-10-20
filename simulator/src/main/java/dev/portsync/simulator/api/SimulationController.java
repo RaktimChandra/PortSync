@@ -34,7 +34,7 @@ public class SimulationController {
     @PostMapping("/pause")
     @Operation(summary = "Freeze simulated time (the core's clock stops too, after its extrapolation limit)")
     public StatusView pause() {
-        clock.pause();
+        runner.pause();
         return status();
     }
 
