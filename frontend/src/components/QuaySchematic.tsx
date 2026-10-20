@@ -18,7 +18,7 @@ export function QuaySchematic({ berths }: { berths: Berth[] }) {
                   <div className="hull-fill" style={{ width: `${progress * 100}%` }} />
                   <div className="hull-label">
                     <span>{v.name}</span>
-                    <span className="code muted">{v.id}</span>
+                    <span className="code">{v.id}</span>
                   </div>
                 </div>
                 <div className="progress-line">

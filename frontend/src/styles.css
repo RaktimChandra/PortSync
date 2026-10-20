@@ -9,6 +9,7 @@
   --ink: #e4ecf2;
   --muted: #93a9ba;
   --signal: #f0a830;
+  --on-signal: #1a1204;
   --ok: #39b39a;
   --crit: #ef5a5f;
   --info: #5aa9e6;
@@ -41,7 +42,8 @@
   --rule: #c6d3dd;
   --ink: #12202c;
   --muted: #536a7c;
-  --signal: #b06c00;
+  --signal: #965b00;
+  --on-signal: #ffffff;
   --ok: #18806b;
   --crit: #c8322f;
   --info: #1f6fae;
@@ -62,7 +64,8 @@
     --rule: #c6d3dd;
     --ink: #12202c;
     --muted: #536a7c;
-    --signal: #b06c00;
+    --signal: #965b00;
+    --on-signal: #ffffff;
     --ok: #18806b;
     --crit: #c8322f;
     --info: #1f6fae;
@@ -434,6 +437,12 @@ select {
   font-weight: 600;
 }
 
+/* A berthed vessel's label crosses the progress fill as it is worked; on the fill only --ink
+   keeps 4.5:1 (--muted was 3.03:1 in the light theme, 2.97:1 in the dark one). */
+.hull-fill + .hull-label {
+  color: var(--ink);
+}
+
 .hull.empty-berth {
   background: repeating-linear-gradient(-45deg, transparent 0 8px, color-mix(in srgb, var(--rule) 55%, transparent) 8px 10px);
 }
@@ -726,7 +735,7 @@ table.data tr:last-child td {
 .btn.primary {
   background: var(--signal);
   border-color: var(--signal);
-  color: #1a1204;
+  color: var(--on-signal);
 }
 
 .segmented {
