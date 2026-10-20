@@ -25,7 +25,7 @@ class SimulationRunnerTest {
 
     @SuppressWarnings("unchecked")
     private SimulationRunner runningRunner() throws Exception {
-        SimulationRunner runner = new SimulationRunner(simulation, e -> { }, clock, mock(SimulatorProperties.class),
+        SimulationRunner runner = new SimulationRunner(simulation, mock(EventSink.class), clock, mock(SimulatorProperties.class),
                 mock(KafkaTemplate.class));
         Field running = SimulationRunner.class.getDeclaredField("running");
         running.setAccessible(true);
